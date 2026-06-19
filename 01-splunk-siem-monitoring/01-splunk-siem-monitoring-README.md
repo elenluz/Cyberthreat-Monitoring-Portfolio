@@ -27,17 +27,21 @@ This case covers standing up a working SIEM environment and learning to turn raw
 
 ## Key SPL Queries
 
-> Replace these with your actual queries and a one-line note on what each one is hunting for.
-
 ```spl
-# [Describe what this search detects]
-index=botsv2 sourcetype=[sourcetype]
-| stats count by [field]
-| sort -count
+# Detects the top 10 most active source IP addresses generating web traffic.
+index=botsv2 sourcetype=stream:http | top limit=10 src_ip
 
-# [Describe what this search detects]
-index=botsv2 [search terms]
-| timechart span=1h count by [field]
+# Detects the frequency of different HTTP status codes to monitor web server responses.
+index=botsv2 sourcetype=stream:http | stats count by status
+
+# Detects the volume of web traffic over time, grouped into 1-hour intervals.
+index=botsv2 sourcetype=stream:http | timechart count span=1h
+
+# Detects the top 10 most frequent successful Windows login accounts.
+index=botsv2 sourcetype=WinEventLog:Security EventCode=4624 | stats count by Account_Name | sort -count | head 10
+
+# Detects the total number of events indexed in the dataset.
+index=botsv2 | stats count
 ```
 
 ## Findings
