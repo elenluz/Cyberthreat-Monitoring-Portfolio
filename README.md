@@ -1,12 +1,12 @@
 <!--
   BEFORE PUBLISHING, replace every bracketed placeholder:
-  [Your Name], [your.email@example.com], [linkedin.com/in/you], [github.com/you],
-  [Honeypot tool], [Ticketing platform], [Year]
+  Elen Luz N. Gayondato, elengayondato@gmail.com, [https://www.linkedin.com/in/elen-luz-gayondato-5b44a72a0/], https://github.com/elenluz/,
+  [Honeypot tool], [Ticketing platform], 2026
   Also swap the italic "e.g." notes inside each case for what you actually did,
   and adjust the 15-Day Timeline to match your real schedule.
 -->
 
-# 🛡️ [Your Name] — SOC Analyst Portfolio
+# 🛡️ Elen Luz N. Gayondato — SOC Analyst Portfolio
 
 **15-day self-directed training lab:** SIEM threat detection, network forensics, honeypot threat intelligence, and incident response.
 
@@ -18,7 +18,7 @@
 
 > A home lab project built to practice the full lifecycle of a security incident — from raw packet capture to a written report — using the same categories of tooling found in real SOC environments. Built in 15 days as a self-directed program, not a job; treat this as evidence of hands-on initiative going into entry-level SOC / security operations roles.
 
-🔗 **Live site:** `[add your GitHub Pages / hosted link here]`
+🔗 **Live site:** `https://elenluz.github.io/Cyberthreat-Monitoring-Portfolio/`
 
 ---
 
@@ -39,7 +39,7 @@
 
 ## About
 
-I'm **[Your Name]**, an aspiring SOC Analyst building hands-on detection and response skills outside the classroom. [Add 2–3 sentences: your background before this lab, what drew you to security, and the type of role you're targeting.]
+I'm **Elen Luz N. Gayondato**, an aspiring SOC Analyst building hands-on detection and response skills outside the classroom. Coming from a development background where I engineered web-based systems and automated inventory workflows, I quickly realized that building efficient technology also means fiercely protecting it. I am actively seeking a SOC Analyst position where I can translate my understanding of how applications and networks are built into proactive threat hunting and incident response.
 
 **Lab stack:** Splunk Enterprise · BOTSv2 Dataset · Wireshark · Kali Linux · [Honeypot tool] · [Ticketing platform]
 
@@ -164,13 +164,12 @@ soc-analyst-portfolio/
     └── screenshots/
 ```
 
-> Tip for recruiters skimming GitHub: keep real screenshots (dashboard panels, Wireshark captures, honeypot logs) inside each folder — visual proof of hands-on work matters more than extra prose.
 
 ## Contact
 
-- **Email:** [your.email@example.com]
-- **LinkedIn:** [linkedin.com/in/you]
-- **GitHub:** [github.com/you]
+- **Email:** elengayondato@gmail.com
+- **LinkedIn:** [https://www.linkedin.com/in/elen-luz-gayondato-5b44a72a0/]
+- **GitHub:** https://github.com/elenluz/
 
 ---
-*Built as part of a 15-day self-directed SOC training lab. © [Year] [Your Name].*
+*Built as part of a 15-day self-directed SOC training lab. © 2026 Elen Luz N. Gayondato.*
