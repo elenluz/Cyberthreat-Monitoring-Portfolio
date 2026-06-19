@@ -6,7 +6,7 @@
 | Severity (Critical / High / Medium / Low) | HIGH |
 | Kill Chain Phase | Delivery |
 | MITRE ATT&CK Technique(s) | T1566.001 · T1203 |
-| Incident Report | [triage-report_SuspiciousPhishingEmailWithMaliciousAttachment.md](../02-incident-response/triage-report_SuspiciousPhishingEmailWithMaliciousAttachment.md) |
+| Incident Report | [triage-report_SuspiciousPhishingEmailWithMaliciousAttachment.md](../02-incident-response/incident-report/triage-report_severity_HIGH.md) |
 
 ## SCENARIO
 
