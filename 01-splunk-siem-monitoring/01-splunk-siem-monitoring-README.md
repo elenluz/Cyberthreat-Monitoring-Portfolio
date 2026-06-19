@@ -12,7 +12,7 @@ This case covers standing up a working SIEM environment and learning to turn raw
 
 | Component | Detail |
 |---|---|
-| SIEM Platform | Splunk Enterprise [v4.78.0] |
+| SIEM Platform | Splunk Enterprise v4.78.0 |
 | Dataset | BOTSv2 |
 | Indexes Used | `botsv2` |
 | Key Sourcetypes | `stream:http, WinEventLog:Security` |
