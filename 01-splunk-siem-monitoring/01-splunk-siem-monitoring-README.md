@@ -15,7 +15,7 @@ This case covers standing up a working SIEM environment and learning to turn raw
 | SIEM Platform | Splunk Enterprise [version] |
 | Dataset | BOTSv2 |
 | Indexes Used | `botsv2` |
-| Key Sourcetypes | `stream:http, WinEventLog:Securit` |
+| Key Sourcetypes | `stream:http, WinEventLog:Security` |
 | Deployment | Docker container |
 
 ## Methodology
@@ -29,19 +29,26 @@ This case covers standing up a working SIEM environment and learning to turn raw
 
 ```spl
 # Detects the top 10 most active source IP addresses generating web traffic.
-index=botsv2 sourcetype=stream:http | top limit=10 src_ip
+index=botsv2 sourcetype=stream:http
+| top limit=10 src_ip
 
 # Detects the frequency of different HTTP status codes to monitor web server responses.
-index=botsv2 sourcetype=stream:http | stats count by status
+index=botsv2 sourcetype=stream:http
+| stats count by status
 
 # Detects the volume of web traffic over time, grouped into 1-hour intervals.
-index=botsv2 sourcetype=stream:http | timechart count span=1h
+index=botsv2 sourcetype=stream:http
+| timechart count span=1h
 
 # Detects the top 10 most frequent successful Windows login accounts.
-index=botsv2 sourcetype=WinEventLog:Security EventCode=4624 | stats count by Account_Name | sort -count | head 10
+index=botsv2 sourcetype=WinEventLog:Security EventCode=4624
+| stats count by Account_Name
+| sort -count
+| head 10
 
 # Detects the total number of events indexed in the dataset.
-index=botsv2 | stats count
+index=botsv2
+| stats count
 ```
 
 ## Findings
