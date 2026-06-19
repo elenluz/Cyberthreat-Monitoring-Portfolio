@@ -6,7 +6,7 @@
 | Severity (Critical / High / Medium / Low) | LOW |
 | Kill Chain Phase | Delivery |
 | MITRE ATT&CK Technique(s) | T1189 · T1204.001 |
-| Incident Report | [triage-report_DriveBy_XSS_Compromise.md](../02-incident-response/triage-report_DriveBy_XSS_Compromise.md) |
+| Incident Report | [triage-report_DriveBy_XSS_Compromise.md](../incident-report/triage-report_severity_LOW.md) |
 
 ## SCENARIO
 
