@@ -6,7 +6,7 @@
 | Severity (Critical / High / Medium / Low) | CRITICAL |
 | Kill Chain Phase | Exploitation |
 | MITRE ATT&CK Technique(s) | T1190 · T1059.001 |
-| Incident Report | [triage-report_SQLi_UnionSelect_Attack.md](../02-incident-response/triage-report_SQLi_UnionSelect_Attack.md) |
+| Incident Report | [triage-report_SQLi_UnionSelect_Attack.md](../incident-report/triage-report_severity_CRITICAL.md) |
 
 ## SCENARIO
 
