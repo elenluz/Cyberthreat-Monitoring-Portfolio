@@ -22,12 +22,12 @@ Alert / Finding  →  Ticket Logged  →  Triage  →  Investigation  →  Repor
 
 ## Triage / Priority Criteria
 
-| Priority | Criteria | Example |
-|---|---|---|
-| **P1 – Critical** | Active compromise, confirmed data exposure | [example] |
-| **P2 – High** | Strong indicator of compromise, no confirmed impact yet | [example] |
-| **P3 – Medium** | Suspicious but plausible benign explanation | [example] |
-| **P4 – Low** | Informational / noise, logged for trend tracking | [example] |
+| Priority | Criteria | Sample Ticket | Sample Incident Report |
+|---|---|---:|---:|
+| **P1 – Critical** | Active compromise, confirmed data exposure | [TKT-003 | SQL Injection Attempt](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-003.md) | [triage-report_severity_CRITICAL.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_CRITICAL.md) |
+| **P2 – High** | Strong indicator of compromise, no confirmed impact yet | [TKT-002 | Suspicious Phishing Email](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-002.md) | [triage-report_severity_HIGH.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_HIGH.md) |
+| **P3 – Medium** | Suspicious but plausible benign explanation | [TKT-009 | Brute-Force RDP Successful Logon](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-009.md) | [triage-report_severity_MEDIUM.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_MEDIUM.md) |
+| **P4 – Low** | Informational / noise, logged for trend tracking | [TKT-010 | Drive-By Download / XSS Session Hijack](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-010.md) | [triage-report_severity_LOW.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_LOW.md) |
 
 ## Sample Tickets
 
