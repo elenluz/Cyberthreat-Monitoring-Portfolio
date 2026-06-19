@@ -14,9 +14,9 @@ This case covers standing up a working SIEM environment and learning to turn raw
 |---|---|
 | SIEM Platform | Splunk Enterprise [version] |
 | Dataset | BOTSv2 |
-| Indexes Used | `[index names, e.g., botsv2]` |
-| Key Sourcetypes | `[e.g., WinEventLog:Security, stream:http, suricata]` |
-| Deployment | [Single instance on local VM / Docker / etc.] |
+| Indexes Used | `botsv2` |
+| Key Sourcetypes | `stream:http, WinEventLog:Securit` |
+| Deployment | Docker container |
 
 ## Methodology
 
@@ -46,14 +46,16 @@ index=botsv2 | stats count
 
 ## Findings
 
-- [Finding 1 — what you found and why it mattered, e.g., "Identified a spike in failed authentication attempts against a single account over a 10-minute window."]
-- [Finding 2]
-- [Finding 3]
+- Finding 1 — Massive spikes in web traffic: Identified a major spike in web traffic reaching nearly 10,000 events around August 11, with another significant spike (over 5,000 events) occurring near the end of August. This matters because the baseline traffic is nearly zero; these sudden bursts strongly suggest automated activity, such as vulnerability scanning, brute-force attacks, or a potential denial-of-service attempt.
+- Finding 2 — Suspicious volume from a specific IP: Observed that the IP address `45.77.65.211` is the second-highest source of traffic overall, generating 8,966 events. This matters because if this is an external, unrecognized IP, producing a volume of traffic comparable to the top internal IP (`172.31.10.10`) is a strong indicator of an external actor probing or attacking the environment.
+- Finding 3 — Anomalous service account activity: Detected exceptionally high login event counts for the `service3` account (68,662 events), which vastly outnumbers normal user accounts like `grace.hoppy` (1,781 events). This matters because while service accounts do generate automated traffic, abnormal spikes can indicate a compromised service account being used for lateral movement or persistence.
+- Finding 4 — Presence of anonymous logons: Noted 315 instances of `ANONYMOUS LOGON` in the Windows top login accounts table. This matters because anonymous logons (such as null sessions) are frequently used by attackers during the reconnaissance phase to enumerate users, shares, and network policies without needing valid credentials.
+- Finding 5 — High volume of non-200 HTTP status codes: While the pie chart is dominated by successful "200" responses, there is a visible slice of client error codes, including 404s, 412s, and 468s. This matters because a high concentration of specific error codes during the identified traffic spikes could confirm directory traversal attempts, fuzzing, or other web application attacks.   
 
 ## Dashboard
 
 ![Dashboard screenshot](./screenshots/dashboard-overview.png)
-*[One-line caption: what this panel shows and how to read it.]*
+*This dashboard tracks web traffic, top IP addresses, and Windows logins to help you easily spot unusual network activity or attacks.*
 
 ## Skills Demonstrated
 
@@ -64,4 +66,4 @@ index=botsv2 | stats count
 
 ## Reflection
 
-[1–3 sentences: what was the hardest part of this case, and what would you do differently with more time? This section shows judgment, not just task completion — it's often what recruiters remember.]
+The most challenging aspect of this case was shifting from a development mindset to an analytical one, specifically learning to filter through massive amounts of normal system noise to confidently isolate malicious behavior in Splunk. With more time, I would drill deeper into the payload details of the web traffic spikes and script an automated workflow to cross-reference those top suspicious IPs against external threat intelligence feeds.
