@@ -43,9 +43,9 @@ ip.src == 192.168.10.45 and tcp.len > 1000
 
 ## Findings
 
-- Finding 1 — External Port Scan: Identified a comprehensive port scan originating from the external IP 45.77.103.22 against the victim host (192.168.10.45). The attacker rapidly cycled through common ports (such as 21, 22, 23, 80, 110, 135) using initial SYN packets, indicating active reconnaissance.
-- Finding 2 — Suspicious Command & Control (C2) Communication: Discovered an active connection between the victim host and external IP 185.220.101.47 communicating over TCP port 4444. Because port 4444 is the default port for Metasploit/Meterpreter reverse shells, this strongly suggests the attacker successfully established a backdoor.
-- Finding 3 — Potential Data Exfiltration: Detected a steady stream of large outbound packets (over 1,000 bytes each) originating from the victim host and destined for the same malicious IP (185.220.101.47). This sustained transfer of large payloads indicates the attacker was likely exfiltrating data or downloading additional stage payloads.
+- Finding 1 — External Port Scan: Identified a comprehensive port scan originating from the external IP `45.77.103.22` against the victim host (`192.168.10.45`). The attacker rapidly cycled through common ports (such as 21, 22, 23, 80, 110, 135) using initial SYN packets, indicating active reconnaissance.
+- Finding 2 — Suspicious Command & Control (C2) Communication: Discovered an active connection between the victim host and external IP `185.220.101.47` communicating over TCP port `4444`. Because port `4444` is the default port for Metasploit/Meterpreter reverse shells, this strongly suggests the attacker successfully established a backdoor.
+- Finding 3 — Potential Data Exfiltration: Detected a steady stream of large outbound packets (over 1,000 bytes each) originating from the victim host and destined for the same malicious IP (`185.220.101.47`). This sustained transfer of large payloads indicates the attacker was likely exfiltrating data or downloading additional stage payloads.
 
 ## Screenshots
 
