@@ -6,7 +6,7 @@
 | Severity (Critical / High / Medium / Low) | MEDIUM |
 | Kill Chain Phase | Exploitation |
 | MITRE ATT&CK Technique(s) | T1110.001 · T1078 |
-| Incident Report | [triage-report_DomainController_Compromise.md](../02-incident-response/triage-report_DomainController_Compromise.md) |
+| Incident Report | [triage-report_DomainController_Compromise.md](../incident-report/triage-report_severity_MEDIUM.md) |
 
 ## SCENARIO
 
