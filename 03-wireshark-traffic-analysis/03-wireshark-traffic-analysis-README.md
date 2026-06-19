@@ -12,7 +12,7 @@ Most SOC tooling eventually points back to "go look at the packets." This case i
 
 | Component | Detail |
 |---|---|
-| Capture Tool | Wireshark [version] |
+| Capture Tool | Wireshark v4.6.6 |
 | Capture Source | Sample PCAP file `operation_midnight_crawl.pcap` |
 | Network Context | Packet capture analysis of a simulated network compromise, isolating traffic to investigate external reconnaissance, Command and Control (C2) reverse shells, and potential data exfiltration from a victim host. |
 
