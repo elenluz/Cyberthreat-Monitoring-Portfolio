@@ -24,18 +24,10 @@ Alert / Finding  →  Ticket Logged  →  Triage  →  Investigation  →  Repor
 
 | Priority | Criteria | Sample Ticket | Sample Incident Report |
 |---|---|---|---|
-| **P1 – Critical** | Active compromise, confirmed data exposure | TKT-003 | [triage-report_severity_CRITICAL.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_CRITICAL.md) |
-| **P2 – High** | Strong indicator of compromise, no confirmed impact yet | TKT-002 | [triage-report_severity_HIGH.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_HIGH.md) |
-| **P3 – Medium** | Suspicious but plausible benign explanation | TKT-009 | [triage-report_severity_MEDIUM.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_MEDIUM.md) |
-| **P4 – Low** | Informational / noise, logged for trend tracking | TKT-010 | [triage-report_severity_LOW.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_LOW.md) |
-
-## Sample Tickets
-
-See [`sample-tickets.md`](./sample-tickets.md) for [X] example tickets logged during this lab, showing the fields used and how priority was assigned.
-
-## Incident Report
-
-See [`incident-report-template.md`](./incident-report-template.md) for the reusable template, and [add filenames] for completed example reports written during this lab.
+| **P1 – Critical** | Active compromise, confirmed data exposure | [TKT-003](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-003.md) | [triage-report_severity_CRITICAL.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_CRITICAL.md) |
+| **P2 – High** | Strong indicator of compromise, no confirmed impact yet | [TKT-002](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-002.md) | [triage-report_severity_HIGH.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_HIGH.md) |
+| **P3 – Medium** | Suspicious but plausible benign explanation | [TKT-009](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-009.md) | [triage-report_severity_MEDIUM.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_MEDIUM.md) |
+| **P4 – Low** | Informational / noise, logged for trend tracking | [TKT-010](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-010.md) | [triage-report_severity_LOW.md](https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_LOW.md) |
 
 ## Skills Demonstrated
 
@@ -46,4 +38,4 @@ See [`incident-report-template.md`](./incident-report-template.md) for the reusa
 
 ## Reflection
 
-[1–3 sentences: what made triage harder than expected, or what you learned about writing reports for someone who wasn't there when the incident happened.]
+Translating the technical findings into an actionable ticket required careful judgment to accurately assign the severity and prioritize the response. Going forward, I would like to integrate more automated threat intelligence lookups directly into the reporting workflow to speed up the triage process.
