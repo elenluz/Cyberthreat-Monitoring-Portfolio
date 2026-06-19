@@ -24,7 +24,7 @@ Most SOC tooling eventually points back to "go look at the packets." This case i
 4. **Baseline vs. anomaly** — compared a capture of "normal" traffic against a capture with suspicious activity to build a feel for what should draw attention.
 
 ## Key Filters Used
-
+```
 # Isolate all inbound and outbound traffic for the target machine
 ip.addr == 192.168.10.45
 
@@ -39,6 +39,7 @@ tcp.port == 4444
 
 # Isolate large outbound data packets to identify potential data exfiltration
 ip.src == 192.168.10.45 and tcp.len > 1000
+```
 
 ## Findings
 
