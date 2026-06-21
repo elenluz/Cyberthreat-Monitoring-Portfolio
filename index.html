@@ -16,19 +16,19 @@
     }
 
     :root {
-      --bg-deep: #2d1b3d;        
-      --bg-panel: #3f2a52;        
+      --bg-deep: #2d1b3d;
+      --bg-panel: #3f2a52;
       --bg-panel-hover: #513a67;
       --bg-card: #4a3160;
       --border-subtle: #6a4d82;
       --text-primary: #f9f0fa;
       --text-secondary: #e6d8ed;
       --text-muted: #b89fc9;
-      --purple-deep: #4A3267;     
-      --blush: #DE638A;           
-      --pink: #F7B9C4;            
-      --mimi-pink: #F3D9E5;       
-      --thistle: #C6BADE;         
+      --purple-deep: #4A3267;
+      --blush: #DE638A;
+      --pink: #F7B9C4;
+      --mimi-pink: #F3D9E5;
+      --thistle: #C6BADE;
       --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
       --font-serif: 'DM Serif Display', serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -456,21 +456,20 @@
     .skill-cat .chip-cloud { justify-content: center; }
     .skill-cat .chip-cloud .chip { font-size: 0.62rem; padding: 4px 12px; }
 
-    /* ----- contact (UPDATED LAYOUT) ----- */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      align-items: start;
+    /* ----- contact (FULL WIDTH - FIXED) ----- */
+    .contact-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
     }
-    @media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
 
     .contact-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: 32px 34px;
+      padding: 36px 40px;
+      position: relative;
     }
+
     .contact-stamp {
       font-family: var(--font-mono);
       font-size: 0.6rem;
@@ -483,17 +482,19 @@
       border-radius: 40px;
       background: rgba(222, 99, 138, 0.12);
       display: inline-block;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
+
     .field-row {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       padding: 12px 0;
       border-bottom: 1px solid var(--border-subtle);
       font-size: 0.92rem;
       align-items: baseline;
     }
     .field-row:last-of-type { border-bottom: none; }
+
     .field-key {
       font-family: var(--font-mono);
       font-size: 0.65rem;
@@ -514,25 +515,21 @@
     .field-val a:hover { color: var(--blush); }
 
     .contact-note {
-      background: var(--bg-panel);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-card);
-      padding: 32px 34px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
     }
     .contact-note h4 {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 8px;
       color: var(--mimi-pink);
     }
     .contact-note p {
       color: var(--text-secondary);
       font-size: 0.92rem;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .pill-status {
       font-family: var(--font-mono);
@@ -544,7 +541,6 @@
       color: var(--pink);
       background: rgba(247, 185, 196, 0.1);
       display: inline-block;
-      align-self: flex-start;
     }
 
     footer {
@@ -786,12 +782,12 @@
     </div>
   </section>
 
-  <!-- contact (UPDATED) -->
+  <!-- contact (FULL WIDTH - FIXED) -->
   <section id="contact" style="border-bottom: none;">
     <div class="wrap">
       <span class="eyebrow">status: open</span>
       <h2>Open a line</h2>
-      <div class="contact-grid">
+      <div class="contact-wrapper">
         <div class="contact-card">
           <span class="contact-stamp">new ticket</span>
           <div class="field-row">
@@ -814,11 +810,12 @@
             <span class="field-key">GitHub</span>
             <span class="field-val"><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio" target="_blank" rel="noopener">github.com/elenluz/Cyberthreat-Monitoring-Portfolio</a></span>
           </div>
-        </div>
-        <div class="contact-note">
-          <h4>Let's connect</h4>
-          <p>I'm actively seeking entry‑level SOC Analyst and Security Operations roles where I can apply my hands‑on lab experience to real‑world threat detection and response.</p>
-          <span class="pill-status">● Open to opportunities</span>
+
+          <div class="contact-note">
+            <h4>Let's connect</h4>
+            <p>I'm actively seeking entry‑level SOC Analyst and Security Operations roles where I can apply my hands‑on lab experience to real‑world threat detection and response.</p>
+            <span class="pill-status">● Open to opportunities</span>
+          </div>
         </div>
       </div>
     </div>
