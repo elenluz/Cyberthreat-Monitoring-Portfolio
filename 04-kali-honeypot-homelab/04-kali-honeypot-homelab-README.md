@@ -20,7 +20,7 @@ A honeypot gives a firsthand, unfiltered look at what automated attackers actual
 
 ## Network Diagram
 
-![Network diagram](./network-diagram.png)
+![Network diagram](./screenshots/network-diagram.png)
 *[Caption describing how the honeypot was segmented from the rest of the home network.]*
 
 ## Methodology
