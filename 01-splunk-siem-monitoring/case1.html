@@ -303,22 +303,26 @@
       margin: 0;
     }
 
-    /* screenshot placeholder */
-    .screenshot-placeholder {
-      background: var(--bg-panel);
-      border: 2px dashed var(--border-subtle);
-      border-radius: var(--radius-card);
-      padding: 60px 20px;
-      text-align: center;
+    /* dashboard image */
+    .dashboard-image {
       margin: 16px 0 24px;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      background: var(--bg-panel);
     }
-    .screenshot-placeholder .icon {
-      font-size: 2.4rem;
+    .dashboard-image img {
+      width: 100%;
+      height: auto;
       display: block;
-      margin-bottom: 12px;
+    }
+    .dashboard-caption {
+      padding: 12px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid var(--border-subtle);
     }
 
     /* skill chips */
@@ -351,6 +355,14 @@
       font-style: italic;
     }
 
+    .file-link {
+      color: var(--pink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(247, 185, 196, 0.3);
+    }
+    .file-link:hover { color: var(--blush); }
+
     /* footer */
     footer {
       padding: 32px 0;
@@ -359,6 +371,12 @@
       font-size: 0.7rem;
       color: var(--text-muted);
       border-top: 1px solid var(--border-subtle);
+    }
+
+    .evidence {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
   </style>
 </head>
@@ -387,7 +405,7 @@
   <header class="case-header">
     <div class="wrap">
       <div class="case-breadcrumb">
-        <a href="index.html">Portfolio</a> / <a href="index.html#cases">Cases</a> / CASE-001
+        <a href="../index.html">Portfolio</a> / <a href="../index.html#cases">Cases</a> / CASE-001
       </div>
       <h1>SIEM Threat Detection &amp; Dashboard Build</h1>
       <div class="case-meta">
@@ -438,6 +456,17 @@
           <li><strong>Build dashboards</strong> — translated the most useful searches into permanent dashboard panels: time charts for activity volume, tables for top talkers/users, and single-value panels for at-a-glance health checks.</li>
           <li><strong>Rehearse the demo</strong> — practiced presenting the dashboard live, narrating what each panel shows and why it matters to someone without a security background.</li>
         </ol>
+      </section>
+
+      <!-- Dashboard (MOVED HERE - after Methodology) -->
+      <section class="content-section">
+        <h2>Dashboard</h2>
+        <div class="dashboard-image">
+          <img src="screenshots/dashboard-overview.png" alt="Splunk dashboard showing web traffic, top IP addresses, and Windows login activity" />
+          <div class="dashboard-caption">
+            This dashboard tracks web traffic, top IP addresses, and Windows logins to help you easily spot unusual network activity or attacks.
+          </div>
+        </div>
       </section>
 
       <!-- Key SPL Queries -->
@@ -495,16 +524,6 @@
         </div>
       </section>
 
-      <!-- Dashboard -->
-      <section class="content-section">
-        <h2>Dashboard</h2>
-        <div class="screenshot-placeholder">
-          <span class="icon">📊</span>
-          Dashboard screenshot: <em>dashboard-overview.png</em><br />
-          <span style="font-size:0.8rem;color:var(--text-muted);">This dashboard tracks web traffic, top IP addresses, and Windows logins to help you easily spot unusual network activity or attacks.</span>
-        </div>
-      </section>
-
       <!-- Skills -->
       <section class="content-section">
         <h2>Skills Demonstrated</h2>
@@ -521,6 +540,14 @@
         <h2>Reflection</h2>
         <div class="reflection-box">
           <p>The most challenging aspect of this case was shifting from a development mindset to an analytical one, specifically learning to filter through massive amounts of normal system noise to confidently isolate malicious behavior in Splunk. With more time, I would drill deeper into the payload details of the web traffic spikes and script an automated workflow to cross-reference those top suspicious IPs against external threat intelligence feeds.</p>
+        </div>
+      </section>
+
+      <!-- Back links -->
+      <section class="content-section" style="border-top: 1px solid var(--border-subtle); padding-top: 24px;">
+        <div class="evidence">
+          📁 <a href="../index.html" class="file-link">← Back to Portfolio</a> · 
+          <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/01-splunk-siem-monitoring" target="_blank" rel="noopener" class="file-link">View source on GitHub →</a>
         </div>
       </section>
 
