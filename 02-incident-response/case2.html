@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASE-002 · Incident Response · Elen Luz N. Gayondato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #2d1b3d;
+      --bg-panel: #3f2a52;
+      --bg-panel-hover: #513a67;
+      --bg-card: #4a3160;
+      --border-subtle: #6a4d82;
+      --text-primary: #f9f0fa;
+      --text-secondary: #e6d8ed;
+      --text-muted: #b89fc9;
+      --purple-deep: #4A3267;
+      --blush: #DE638A;
+      --pink: #F7B9C4;
+      --mimi-pink: #F3D9E5;
+      --thistle: #C6BADE;
+      --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'DM Serif Display', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --container: 960px;
+      --radius-card: 20px;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+    /* ----- status bar ----- */
+    .status-bar {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 10px 0;
+    }
+    .status-bar .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blush);
+      margin-right: 10px;
+      animation: pulse 2.4s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.85); }
+    }
+
+    /* ----- nav ----- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(45, 27, 61, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    .logo span { color: var(--pink); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-links .back-link {
+      color: var(--blush);
+      border: 1px solid var(--blush);
+      padding: 4px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      transition: 0.2s;
+    }
+    .nav-links .back-link:hover {
+      background: var(--blush);
+      color: var(--bg-deep);
+    }
+    @media (max-width: 640px) {
+      .nav-links { gap: 12px; font-size: 0.72rem; flex-wrap: wrap; }
+      .nav-links .back-link { padding: 3px 12px; font-size: 0.7rem; }
+    }
+
+    /* ----- case header ----- */
+    .case-header {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .case-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .case-breadcrumb a { color: var(--pink); }
+    .case-breadcrumb a:hover { color: var(--blush); }
+    .case-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      margin: 0 0 8px;
+      line-height: 1.15;
+    }
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 12px;
+    }
+    .meta-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 14px;
+      border-radius: 40px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    .meta-tag.status {
+      color: var(--pink);
+      border-color: var(--pink);
+      background: rgba(247, 185, 196, 0.08);
+    }
+    .meta-tag.category {
+      color: var(--blush);
+      border-color: var(--blush);
+      background: rgba(222, 99, 138, 0.08);
+    }
+    .meta-tag.tool {
+      color: var(--thistle);
+      border-color: var(--thistle);
+      background: rgba(198, 186, 222, 0.08);
+    }
+
+    /* ----- content ----- */
+    .case-body { padding: 48px 0 80px; }
+
+    .content-section {
+      margin-bottom: 44px;
+    }
+    .content-section:last-child { margin-bottom: 0; }
+
+    .content-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--mimi-pink);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+
+    .content-section h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--pink);
+      margin: 24px 0 12px;
+    }
+
+    .content-section p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .content-section ul, .content-section ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .content-section ul li, .content-section ol li {
+      margin-bottom: 6px;
+    }
+    .content-section ul li::marker { color: var(--blush); }
+
+    /* workflow diagram */
+    .workflow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 4px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: 20px 24px;
+      margin: 16px 0 24px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+    .workflow-step {
+      background: var(--bg-deep);
+      padding: 8px 16px;
+      border-radius: 40px;
+      border: 1px solid var(--border-subtle);
+      color: var(--mimi-pink);
+      white-space: nowrap;
+    }
+    .workflow-arrow {
+      color: var(--blush);
+      font-size: 1.2rem;
+    }
+
+    /* table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-subtle);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    thead {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    th {
+      text-align: left;
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    td {
+      padding: 10px 18px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-panel-hover); }
+    td .priority-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 2px 12px;
+      border-radius: 40px;
+      display: inline-block;
+    }
+    .priority-critical {
+      color: #ff6b6b;
+      background: rgba(255, 107, 107, 0.12);
+      border: 1px solid #ff6b6b;
+    }
+    .priority-high {
+      color: #ffa94d;
+      background: rgba(255, 169, 77, 0.12);
+      border: 1px solid #ffa94d;
+    }
+    .priority-medium {
+      color: #ffd93d;
+      background: rgba(255, 217, 61, 0.12);
+      border: 1px solid #ffd93d;
+    }
+    .priority-low {
+      color: var(--thistle);
+      background: rgba(198, 186, 222, 0.12);
+      border: 1px solid var(--thistle);
+    }
+
+    /* skill chips */
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .skill-chip {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--thistle);
+      background: rgba(198, 186, 222, 0.08);
+      border: 1px solid rgba(198, 186, 222, 0.2);
+      border-radius: 40px;
+      padding: 5px 16px;
+    }
+
+    /* reflection */
+    .reflection-box {
+      background: var(--bg-panel);
+      border-radius: var(--radius-card);
+      padding: 24px 28px;
+      border: 1px solid var(--border-subtle);
+      margin-top: 12px;
+    }
+    .reflection-box p {
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    .file-link {
+      color: var(--pink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(247, 185, 196, 0.3);
+    }
+    .file-link:hover { color: var(--blush); }
+
+    /* footer */
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- status -->
+  <div class="status-bar">
+    <div class="wrap">
+      <span><span class="status-dot"></span>TRAINING · ACTIVE</span>
+      <span>CASE-002 · Incident Response</span>
+    </div>
+  </div>
+
+  <!-- nav -->
+  <nav>
+    <div class="wrap">
+      <div class="logo">⧫ <span>cyber</span>threat</div>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="back-link">← Back to Portfolio</a></li>
+        <li><a href="../01-splunk-siem-monitoring/case1.html">← Previous Case</a></li>
+        <li><a href="../03-wireshark-traffic-analysis/case3.html">Next Case →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- case header -->
+  <header class="case-header">
+    <div class="wrap">
+      <div class="case-breadcrumb">
+        <a href="../index.html">Portfolio</a> / <a href="../index.html#cases">Cases</a> / CASE-002
+      </div>
+      <h1>Incident Triage, Ticketing &amp; Reporting</h1>
+      <div class="case-meta">
+        <span class="meta-tag status">● Documented</span>
+        <span class="meta-tag category">Incident Response</span>
+        <span class="meta-tag tool">osTicket</span>
+        <span class="meta-tag tool">Incident Report Writing</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- case body -->
+  <main class="case-body">
+    <div class="wrap">
+
+      <!-- Overview -->
+      <section class="content-section">
+        <h2>Overview</h2>
+        <p>This case covers the part of SOC work that happens <em>after</em> detection: deciding what matters, tracking it through to resolution, and writing it up clearly enough that another analyst could pick up the case cold. Findings from the <a href="../01-splunk-siem-monitoring/case1.html" class="file-link">CASE-001 Splunk dashboard work</a> fed directly into this workflow.</p>
+      </section>
+
+      <!-- Workflow -->
+      <section class="content-section">
+        <h2>Workflow</h2>
+        <div class="workflow">
+          <span class="workflow-step">Alert / Finding</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Ticket Logged</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Triage</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Investigation</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Report</span>
+          <span class="workflow-arrow">→</span>
+          <span class="workflow-step">Close</span>
+        </div>
+        <ol>
+          <li><strong>Log it</strong> — every alert or finding worth tracking was entered into osTicket as a ticket, rather than left as a one-off search result.</li>
+          <li><strong>Triage it</strong> — each ticket was scored for priority before deep investigation, using the criteria below.</li>
+          <li><strong>Investigate</strong> — pulled supporting evidence (Splunk searches, packet captures, honeypot logs) to confirm or rule out the ticket.</li>
+          <li><strong>Report it</strong> — higher-priority tickets were written up using the incident report template.</li>
+          <li><strong>Close it</strong> — ticket updated with final status and a link to the report.</li>
+        </ol>
+      </section>
+
+      <!-- Triage Criteria -->
+      <section class="content-section">
+        <h2>Triage / Priority Criteria</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Criteria</th>
+                <th>Sample Ticket</th>
+                <th>Sample Incident Report</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="priority-badge priority-critical">P1 – Critical</span></td>
+                <td>Active compromise, confirmed data exposure</td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-003.md" target="_blank" rel="noopener" class="file-link">TKT-003</a></td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_CRITICAL.md" target="_blank" rel="noopener" class="file-link">triage-report_severity_CRITICAL.md</a></td>
+              </tr>
+              <tr>
+                <td><span class="priority-badge priority-high">P2 – High</span></td>
+                <td>Strong indicator of compromise, no confirmed impact yet</td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-002.md" target="_blank" rel="noopener" class="file-link">TKT-002</a></td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_HIGH.md" target="_blank" rel="noopener" class="file-link">triage-report_severity_HIGH.md</a></td>
+              </tr>
+              <tr>
+                <td><span class="priority-badge priority-medium">P3 – Medium</span></td>
+                <td>Suspicious but plausible benign explanation</td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-009.md" target="_blank" rel="noopener" class="file-link">TKT-009</a></td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_MEDIUM.md" target="_blank" rel="noopener" class="file-link">triage-report_severity_MEDIUM.md</a></td>
+              </tr>
+              <tr>
+                <td><span class="priority-badge priority-low">P4 – Low</span></td>
+                <td>Informational / noise, logged for trend tracking</td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/ticket/ticket-TKT-010.md" target="_blank" rel="noopener" class="file-link">TKT-010</a></td>
+                <td><a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/blob/main/02-incident-response/incident-report/triage-report_severity_LOW.md" target="_blank" rel="noopener" class="file-link">triage-report_severity_LOW.md</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="content-section">
+        <h2>Skills Demonstrated</h2>
+        <div class="skill-chips">
+          <span class="skill-chip">Alert triage &amp; prioritization</span>
+          <span class="skill-chip">Ticketing/case management</span>
+          <span class="skill-chip">Incident report writing</span>
+          <span class="skill-chip">Technical communication</span>
+        </div>
+      </section>
+
+      <!-- Reflection -->
+      <section class="content-section">
+        <h2>Reflection</h2>
+        <div class="reflection-box">
+          <p>Translating the technical findings into an actionable ticket required careful judgment to accurately assign the severity and prioritize the response. Going forward, I would like to integrate more automated threat intelligence lookups directly into the reporting workflow to speed up the triage process.</p>
+        </div>
+      </section>
+
+      <!-- Back links -->
+      <section class="content-section" style="border-top: 1px solid var(--border-subtle); padding-top: 24px;">
+        <div class="evidence" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">
+          📁 <a href="../index.html" class="file-link">← Back to Portfolio</a> · 
+          <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/02-incident-response" target="_blank" rel="noopener" class="file-link">View source on GitHub →</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer>
+    CASE-002 · Incident Triage, Ticketing &amp; Reporting · © 2026 Elen Luz N. Gayondato
+  </footer>
+
+</body>
+</html>
