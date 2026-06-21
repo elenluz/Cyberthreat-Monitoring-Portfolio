@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASE-004 · Honeypot Deployment & Threat Intelligence · Elen Luz N. Gayondato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #2d1b3d;
+      --bg-panel: #3f2a52;
+      --bg-panel-hover: #513a67;
+      --bg-card: #4a3160;
+      --border-subtle: #6a4d82;
+      --text-primary: #f9f0fa;
+      --text-secondary: #e6d8ed;
+      --text-muted: #b89fc9;
+      --purple-deep: #4A3267;
+      --blush: #DE638A;
+      --pink: #F7B9C4;
+      --mimi-pink: #F3D9E5;
+      --thistle: #C6BADE;
+      --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'DM Serif Display', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --container: 960px;
+      --radius-card: 20px;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+    /* ----- status bar ----- */
+    .status-bar {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 10px 0;
+    }
+    .status-bar .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blush);
+      margin-right: 10px;
+      animation: pulse 2.4s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.85); }
+    }
+
+    /* ----- nav ----- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(45, 27, 61, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    .logo span { color: var(--pink); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-links .back-link {
+      color: var(--blush);
+      border: 1px solid var(--blush);
+      padding: 4px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      transition: 0.2s;
+    }
+    .nav-links .back-link:hover {
+      background: var(--blush);
+      color: var(--bg-deep);
+    }
+    @media (max-width: 640px) {
+      .nav-links { gap: 12px; font-size: 0.72rem; flex-wrap: wrap; }
+      .nav-links .back-link { padding: 3px 12px; font-size: 0.7rem; }
+    }
+
+    /* ----- case header ----- */
+    .case-header {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .case-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .case-breadcrumb a { color: var(--pink); }
+    .case-breadcrumb a:hover { color: var(--blush); }
+    .case-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      margin: 0 0 8px;
+      line-height: 1.15;
+    }
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 12px;
+    }
+    .meta-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 14px;
+      border-radius: 40px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    .meta-tag.status {
+      color: var(--pink);
+      border-color: var(--pink);
+      background: rgba(247, 185, 196, 0.08);
+    }
+    .meta-tag.category {
+      color: var(--blush);
+      border-color: var(--blush);
+      background: rgba(222, 99, 138, 0.08);
+    }
+    .meta-tag.tool {
+      color: var(--thistle);
+      border-color: var(--thistle);
+      background: rgba(198, 186, 222, 0.08);
+    }
+
+    /* ----- content ----- */
+    .case-body { padding: 48px 0 80px; }
+
+    .content-section {
+      margin-bottom: 44px;
+    }
+    .content-section:last-child { margin-bottom: 0; }
+
+    .content-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--mimi-pink);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+
+    .content-section h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--pink);
+      margin: 24px 0 12px;
+    }
+
+    .content-section p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .content-section ul, .content-section ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .content-section ul li, .content-section ol li {
+      margin-bottom: 6px;
+    }
+    .content-section ul li::marker { color: var(--blush); }
+
+    /* table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-subtle);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    thead {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    th {
+      text-align: left;
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    td {
+      padding: 10px 18px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-panel-hover); }
+
+    /* finding cards */
+    .finding-grid {
+      display: grid;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .finding-card {
+      background: var(--bg-panel);
+      border-left: 3px solid var(--blush);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: 0.2s;
+    }
+    .finding-card:hover {
+      background: var(--bg-panel-hover);
+      border-left-color: var(--pink);
+    }
+    .finding-card .finding-title {
+      font-weight: 600;
+      color: var(--mimi-pink);
+      margin-bottom: 4px;
+    }
+    .finding-card .finding-desc {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+    .finding-card .finding-desc code {
+      background: var(--bg-deep);
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: var(--pink);
+      font-family: var(--font-mono);
+    }
+
+    /* screenshot - ONE PER LINE, full width */
+    .screenshot-block {
+      margin-bottom: 28px;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      background: var(--bg-panel);
+    }
+    .screenshot-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .screenshot-block .screenshot-caption {
+      padding: 14px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-deep);
+    }
+    .screenshot-block .screenshot-caption strong {
+      color: var(--mimi-pink);
+    }
+    .screenshot-block .screenshot-caption code {
+      background: var(--bg-panel);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--pink);
+      font-family: var(--font-mono);
+    }
+
+    /* skill chips */
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .skill-chip {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--thistle);
+      background: rgba(198, 186, 222, 0.08);
+      border: 1px solid rgba(198, 186, 222, 0.2);
+      border-radius: 40px;
+      padding: 5px 16px;
+    }
+
+    /* reflection */
+    .reflection-box {
+      background: var(--bg-panel);
+      border-radius: var(--radius-card);
+      padding: 24px 28px;
+      border: 1px solid var(--border-subtle);
+      margin-top: 12px;
+    }
+    .reflection-box p {
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    .file-link {
+      color: var(--pink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(247, 185, 196, 0.3);
+    }
+    .file-link:hover { color: var(--blush); }
+
+    /* footer */
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .evidence {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- status -->
+  <div class="status-bar">
+    <div class="wrap">
+      <span><span class="status-dot"></span>TRAINING · ACTIVE</span>
+      <span>CASE-004 · Adversary Intelligence</span>
+    </div>
+  </div>
+
+  <!-- nav -->
+  <nav>
+    <div class="wrap">
+      <div class="logo">⧫ <span>cyber</span>threat</div>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="back-link">← Back to Portfolio</a></li>
+        <li><a href="../03-wireshark-traffic-analysis/case3.html">← Previous Case</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- case header -->
+  <header class="case-header">
+    <div class="wrap">
+      <div class="case-breadcrumb">
+        <a href="../index.html">Portfolio</a> / <a href="../index.html#cases">Cases</a> / CASE-004
+      </div>
+      <h1>Honeypot Deployment &amp; Threat Intelligence</h1>
+      <div class="case-meta">
+        <span class="meta-tag status">● Documented</span>
+        <span class="meta-tag category">Adversary Intelligence</span>
+        <span class="meta-tag tool">Kali Linux</span>
+        <span class="meta-tag tool">Cowrie</span>
+        <span class="meta-tag tool">VirtualBox</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- case body -->
+  <main class="case-body">
+    <div class="wrap">
+
+      <!-- Overview -->
+      <section class="content-section">
+        <h2>Overview</h2>
+        <p>A honeypot gives a firsthand, unfiltered look at what automated attackers actually do — without putting real systems at risk. This case covers deploying one inside an isolated home lab segment and analyzing what it caught.</p>
+      </section>
+
+      <!-- Lab Environment -->
+      <section class="content-section">
+        <h2>Lab Environment</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Component</th><th>Detail</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Host OS</td><td>Kali Linux 2026.1</td></tr>
+              <tr><td>Honeypot Software</td><td>Cowrie</td></tr>
+              <tr><td>Virtualization</td><td>VirtualBox</td></tr>
+              <tr><td>Network Isolation</td><td>Bridged Adapter</td></tr>
+              <tr><td>Exposure</td><td>Exposed only within the lab network</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Network Diagram -->
+      <section class="content-section">
+        <h2>Network Diagram</h2>
+        <div class="screenshot-block">
+          <img src="screenshots/network-diagram.png" alt="Network diagram showing honeypot isolated on a local bridged network" />
+          <div class="screenshot-caption">
+            The honeypot is safely isolated from the public internet by deploying it on a local bridged network (<code>192.168.1.0/24</code>) behind a home router with no port forwarding, restricting access strictly to the local attacker VM.
+          </div>
+        </div>
+      </section>
+
+      <!-- Methodology -->
+      <section class="content-section">
+        <h2>Methodology</h2>
+        <ol>
+          <li><strong>Isolate first</strong> — built a dedicated network segment so the honeypot could be exposed without any path back to personal devices or data.</li>
+          <li><strong>Deploy &amp; configure</strong> — installed and configured Cowrie on Kali Linux to passively log connection attempts, credentials tried, and any commands executed by a connecting party.</li>
+          <li><strong>Let it run</strong> — left the honeypot live for 5 days to collect a realistic sample of automated scanning/attack traffic.</li>
+          <li><strong>Analyze the logs</strong> — reviewed honeypot logs for patterns: common usernames/passwords attempted, source IP behavior, scanning cadence, and any follow-on actions after a simulated "successful" login.</li>
+          <li><strong>Cross-reference with packets</strong> — correlated honeypot application-layer logs against the matching Wireshark capture (see <a href="../03-wireshark-traffic-analysis/case3.html" class="file-link">CASE-003</a>) to connect what was logged at the service level with what was visible on the wire.</li>
+        </ol>
+      </section>
+
+      <!-- Findings -->
+      <section class="content-section">
+        <h2>Findings</h2>
+        <div class="finding-grid">
+          <div class="finding-card">
+            <div class="finding-title">Finding 1 — Secure local isolation</div>
+            <p class="finding-desc">Identified that the home router is configured with <strong>"No port forwarding."</strong> This matters because it ensures the honeypot is strictly accessible only from the internal LAN (specifically the Attacker VM at <code>192.168.1.16</code>), preventing accidental exposure to the public internet while safely simulating an attack environment.</p>
+          </div>
+          <div class="finding-card">
+            <div class="finding-title">Finding 2 — Transparent port redirection</div>
+            <p class="finding-desc">Observed that iptables PREROUTING rules are actively redirecting incoming traffic from the standard SSH port (<code>22</code>) to an alternate port (<code>2222</code>). This matters because it allows the Cowrie honeypot to run safely as a non-root user on an unprivileged port while tricking the attacker into believing they are targeting a default SSH service.</p>
+          </div>
+          <div class="finding-card">
+            <div class="finding-title">Finding 3 — Centralized session logging</div>
+            <p class="finding-desc">Confirmed that all attacker interactions captured by the Cowrie service listening on port <code>2222</code> are routed to a dedicated local log file (<code>var/log/cowrie/cowrie.log</code>). This matters because it provides a reliable, single source of truth for extracting indicators like brute-force passwords, executed commands, and dropped payloads for later analysis.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="content-section">
+        <h2>Skills Demonstrated</h2>
+        <div class="skill-chips">
+          <span class="skill-chip">Honeypot deployment and configuration</span>
+          <span class="skill-chip">Network segmentation and isolation design</span>
+          <span class="skill-chip">Log analysis and pattern recognition</span>
+          <span class="skill-chip">Correlating application-layer and network-layer evidence</span>
+        </div>
+      </section>
+
+      <!-- Reflection -->
+      <section class="content-section">
+        <h2>Reflection</h2>
+        <div class="reflection-box">
+          <p>Watching live brute-force attempts hit the honeypot bridged the gap between theory and reality, highlighting how relentlessly automated real-world threats are compared to the structured software I usually build. To evolve this lab setup, I plan to integrate ASN enrichment directly into the logging pipeline so I can automatically identify the specific cloud hosting providers attackers are using to launch their scripts, turning raw IP addresses into actionable threat intelligence.</p>
+        </div>
+      </section>
+
+      <!-- Back links -->
+      <section class="content-section" style="border-top: 1px solid var(--border-subtle); padding-top: 24px;">
+        <div class="evidence">
+          📁 <a href="../index.html" class="file-link">← Back to Portfolio</a> · 
+          <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/04-kali-honeypot-homelab" target="_blank" rel="noopener" class="file-link">View source on GitHub →</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer>
+    CASE-004 · Honeypot Deployment &amp; Threat Intelligence · © 2026 Elen Luz N. Gayondato
+  </footer>
+
+</body>
+</html>
