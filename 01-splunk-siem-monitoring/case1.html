@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASE-001 · SIEM Threat Detection · Elen Luz N. Gayondato</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #2d1b3d;
+      --bg-panel: #3f2a52;
+      --bg-panel-hover: #513a67;
+      --bg-card: #4a3160;
+      --border-subtle: #6a4d82;
+      --text-primary: #f9f0fa;
+      --text-secondary: #e6d8ed;
+      --text-muted: #b89fc9;
+      --purple-deep: #4A3267;
+      --blush: #DE638A;
+      --pink: #F7B9C4;
+      --mimi-pink: #F3D9E5;
+      --thistle: #C6BADE;
+      --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'DM Serif Display', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --container: 960px;
+      --radius-card: 20px;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+
+    /* ----- status bar ----- */
+    .status-bar {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 10px 0;
+    }
+    .status-bar .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blush);
+      margin-right: 10px;
+      animation: pulse 2.4s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.85); }
+    }
+
+    /* ----- nav ----- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(45, 27, 61, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    nav .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    .logo span { color: var(--pink); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-links .back-link {
+      color: var(--blush);
+      border: 1px solid var(--blush);
+      padding: 4px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      transition: 0.2s;
+    }
+    .nav-links .back-link:hover {
+      background: var(--blush);
+      color: var(--bg-deep);
+    }
+    @media (max-width: 640px) {
+      .nav-links { gap: 12px; font-size: 0.72rem; flex-wrap: wrap; }
+      .nav-links .back-link { padding: 3px 12px; font-size: 0.7rem; }
+    }
+
+    /* ----- case header ----- */
+    .case-header {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .case-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .case-breadcrumb a { color: var(--pink); }
+    .case-breadcrumb a:hover { color: var(--blush); }
+    .case-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      margin: 0 0 8px;
+      line-height: 1.15;
+    }
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 12px;
+    }
+    .meta-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 14px;
+      border-radius: 40px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    .meta-tag.status {
+      color: var(--pink);
+      border-color: var(--pink);
+      background: rgba(247, 185, 196, 0.08);
+    }
+    .meta-tag.category {
+      color: var(--blush);
+      border-color: var(--blush);
+      background: rgba(222, 99, 138, 0.08);
+    }
+    .meta-tag.tool {
+      color: var(--thistle);
+      border-color: var(--thistle);
+      background: rgba(198, 186, 222, 0.08);
+    }
+
+    /* ----- content ----- */
+    .case-body { padding: 48px 0 80px; }
+
+    .content-section {
+      margin-bottom: 44px;
+    }
+    .content-section:last-child { margin-bottom: 0; }
+
+    .content-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--mimi-pink);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+
+    .content-section h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--pink);
+      margin: 24px 0 12px;
+    }
+
+    .content-section p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 14px;
+      line-height: 1.8;
+    }
+
+    .content-section ul, .content-section ol {
+      color: var(--text-secondary);
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .content-section ul li, .content-section ol li {
+      margin-bottom: 6px;
+    }
+    .content-section ul li::marker { color: var(--blush); }
+
+    /* table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 16px 0 24px;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-subtle);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    thead {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    th {
+      text-align: left;
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    td {
+      padding: 10px 18px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-panel-hover); }
+
+    /* code block */
+    .code-block {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: 20px 24px;
+      margin: 16px 0 20px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--mimi-pink);
+    }
+    .code-block .comment {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .code-block .keyword { color: var(--pink); }
+    .code-block .string { color: var(--blush); }
+    .code-block .function { color: var(--thistle); }
+
+    /* finding cards */
+    .finding-grid {
+      display: grid;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .finding-card {
+      background: var(--bg-panel);
+      border-left: 3px solid var(--blush);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: 0.2s;
+    }
+    .finding-card:hover {
+      background: var(--bg-panel-hover);
+      border-left-color: var(--pink);
+    }
+    .finding-card .finding-title {
+      font-weight: 600;
+      color: var(--mimi-pink);
+      margin-bottom: 4px;
+    }
+    .finding-card .finding-desc {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+
+    /* screenshot placeholder */
+    .screenshot-placeholder {
+      background: var(--bg-panel);
+      border: 2px dashed var(--border-subtle);
+      border-radius: var(--radius-card);
+      padding: 60px 20px;
+      text-align: center;
+      margin: 16px 0 24px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+    .screenshot-placeholder .icon {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* skill chips */
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .skill-chip {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--thistle);
+      background: rgba(198, 186, 222, 0.08);
+      border: 1px solid rgba(198, 186, 222, 0.2);
+      border-radius: 40px;
+      padding: 5px 16px;
+    }
+
+    /* reflection */
+    .reflection-box {
+      background: var(--bg-panel);
+      border-radius: var(--radius-card);
+      padding: 24px 28px;
+      border: 1px solid var(--border-subtle);
+      margin-top: 12px;
+    }
+    .reflection-box p {
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    /* footer */
+    footer {
+      padding: 32px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- status -->
+  <div class="status-bar">
+    <div class="wrap">
+      <span><span class="status-dot"></span>TRAINING · ACTIVE</span>
+      <span>CASE-001 · SIEM Threat Detection</span>
+    </div>
+  </div>
+
+  <!-- nav -->
+  <nav>
+    <div class="wrap">
+      <div class="logo">⧫ <span>cyber</span>threat</div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="back-link">← Back to Portfolio</a></li>
+        <li><a href="case-002.html">Next Case →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- case header -->
+  <header class="case-header">
+    <div class="wrap">
+      <div class="case-breadcrumb">
+        <a href="index.html">Portfolio</a> / <a href="index.html#cases">Cases</a> / CASE-001
+      </div>
+      <h1>SIEM Threat Detection &amp; Dashboard Build</h1>
+      <div class="case-meta">
+        <span class="meta-tag status">● Documented</span>
+        <span class="meta-tag category">Detection &amp; Monitoring</span>
+        <span class="meta-tag tool">Splunk Enterprise</span>
+        <span class="meta-tag tool">BOTSv2</span>
+        <span class="meta-tag tool">SPL</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- case body -->
+  <main class="case-body">
+    <div class="wrap">
+
+      <!-- Overview -->
+      <section class="content-section">
+        <h2>Overview</h2>
+        <p>This case covers standing up a working SIEM environment and learning to turn raw security logs into actionable monitoring. The lab uses <strong>BOTSv2 (Boss of the SOC v2)</strong> — a publicly available dataset built by Splunk for SOC training, containing logs from a simulated breach against a fictional brewing company ("Frothly"). It includes a mix of Windows event logs, network/wire data, and endpoint telemetry, which makes it realistic enough to practice real detection workflows on.</p>
+      </section>
+
+      <!-- Lab Environment -->
+      <section class="content-section">
+        <h2>Lab Environment</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Component</th><th>Detail</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>SIEM Platform</td><td>Splunk Enterprise v4.78.0</td></tr>
+              <tr><td>Dataset</td><td>BOTSv2</td></tr>
+              <tr><td>Indexes Used</td><td><code>botsv2</code></td></tr>
+              <tr><td>Key Sourcetypes</td><td><code>stream:http, WinEventLog:Security</code></td></tr>
+              <tr><td>Deployment</td><td>Docker container</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Methodology -->
+      <section class="content-section">
+        <h2>Methodology</h2>
+        <ol>
+          <li><strong>Ingest &amp; orient</strong> — loaded the BOTSv2 dataset into Splunk and ran broad searches (<code>index=botsv2</code>) to understand what sourcetypes and fields were available before writing any targeted queries.</li>
+          <li><strong>Hunt with SPL</strong> — wrote searches to surface indicators of compromise across the simulated environment.</li>
+          <li><strong>Build dashboards</strong> — translated the most useful searches into permanent dashboard panels: time charts for activity volume, tables for top talkers/users, and single-value panels for at-a-glance health checks.</li>
+          <li><strong>Rehearse the demo</strong> — practiced presenting the dashboard live, narrating what each panel shows and why it matters to someone without a security background.</li>
+        </ol>
+      </section>
+
+      <!-- Key SPL Queries -->
+      <section class="content-section">
+        <h2>Key SPL Queries</h2>
+        <div class="code-block">
+          <span class="comment"># Detects the top 10 most active source IP addresses generating web traffic.</span><br />
+          index=botsv2 sourcetype=stream:http<br />
+          | top limit=10 src_ip<br /><br />
+
+          <span class="comment"># Detects the frequency of different HTTP status codes to monitor web server responses.</span><br />
+          index=botsv2 sourcetype=stream:http<br />
+          | stats count by status<br /><br />
+
+          <span class="comment"># Detects the volume of web traffic over time, grouped into 1-hour intervals.</span><br />
+          index=botsv2 sourcetype=stream:http<br />
+          | timechart count span=1h<br /><br />
+
+          <span class="comment"># Detects the top 10 most frequent successful Windows login accounts.</span><br />
+          index=botsv2 sourcetype=WinEventLog:Security EventCode=4624<br />
+          | stats count by Account_Name<br />
+          | sort -count<br />
+          | head 10<br /><br />
+
+          <span class="comment"># Detects the total number of events indexed in the dataset.</span><br />
+          index=botsv2<br />
+          | stats count
+        </div>
+      </section>
+
+      <!-- Findings -->
+      <section class="content-section">
+        <h2>Findings</h2>
+        <div class="finding-grid">
+          <div class="finding-card">
+            <div class="finding-title">Finding 1 — Massive spikes in web traffic</div>
+            <p class="finding-desc">Identified a major spike in web traffic reaching nearly 10,000 events around August 11, with another significant spike (over 5,000 events) occurring near the end of August. This matters because the baseline traffic is nearly zero; these sudden bursts strongly suggest automated activity, such as vulnerability scanning, brute-force attacks, or a potential denial-of-service attempt.</p>
+          </div>
+          <div class="finding-card">
+            <div class="finding-title">Finding 2 — Suspicious volume from a specific IP</div>
+            <p class="finding-desc">Observed that the IP address <code>45.77.65.211</code> is the second-highest source of traffic overall, generating 8,966 events. This matters because if this is an external, unrecognized IP, producing a volume of traffic comparable to the top internal IP (<code>172.31.10.10</code>) is a strong indicator of an external actor probing or attacking the environment.</p>
+          </div>
+          <div class="finding-card">
+            <div class="finding-title">Finding 3 — Anomalous service account activity</div>
+            <p class="finding-desc">Detected exceptionally high login event counts for the <code>service3</code> account (68,662 events), which vastly outnumbers normal user accounts like <code>grace.hoppy</code> (1,781 events). This matters because while service accounts do generate automated traffic, abnormal spikes can indicate a compromised service account being used for lateral movement or persistence.</p>
+          </div>
+          <div class="finding-card">
+            <div class="finding-title">Finding 4 — Presence of anonymous logons</div>
+            <p class="finding-desc">Noted 315 instances of <code>ANONYMOUS LOGON</code> in the Windows top login accounts table. This matters because anonymous logons (such as null sessions) are frequently used by attackers during the reconnaissance phase to enumerate users, shares, and network policies without needing valid credentials.</p>
+          </div>
+          <div class="finding-card">
+            <div class="finding-title">Finding 5 — High volume of non-200 HTTP status codes</div>
+            <p class="finding-desc">While the pie chart is dominated by successful "200" responses, there is a visible slice of client error codes, including 404s, 412s, and 468s. This matters because a high concentration of specific error codes during the identified traffic spikes could confirm directory traversal attempts, fuzzing, or other web application attacks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section class="content-section">
+        <h2>Dashboard</h2>
+        <div class="screenshot-placeholder">
+          <span class="icon">📊</span>
+          Dashboard screenshot: <em>dashboard-overview.png</em><br />
+          <span style="font-size:0.8rem;color:var(--text-muted);">This dashboard tracks web traffic, top IP addresses, and Windows logins to help you easily spot unusual network activity or attacks.</span>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="content-section">
+        <h2>Skills Demonstrated</h2>
+        <div class="skill-chips">
+          <span class="skill-chip">SPL query writing</span>
+          <span class="skill-chip">Log correlation</span>
+          <span class="skill-chip">Dashboard &amp; visualization design</span>
+          <span class="skill-chip">Technical presenting</span>
+        </div>
+      </section>
+
+      <!-- Reflection -->
+      <section class="content-section">
+        <h2>Reflection</h2>
+        <div class="reflection-box">
+          <p>The most challenging aspect of this case was shifting from a development mindset to an analytical one, specifically learning to filter through massive amounts of normal system noise to confidently isolate malicious behavior in Splunk. With more time, I would drill deeper into the payload details of the web traffic spikes and script an automated workflow to cross-reference those top suspicious IPs against external threat intelligence feeds.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- footer -->
+  <footer>
+    CASE-001 · SIEM Threat Detection &amp; Dashboard Build · © 2026 Elen Luz N. Gayondato
+  </footer>
+
+</body>
+</html>
