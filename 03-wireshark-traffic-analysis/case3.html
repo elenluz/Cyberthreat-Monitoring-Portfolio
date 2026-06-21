@@ -308,38 +308,35 @@
       font-family: var(--font-mono);
     }
 
-    /* screenshot - one per line */
-    .screenshot-item {
-      background: var(--bg-panel);
+    /* screenshot - ONE PER LINE, full width */
+    .screenshot-block {
+      margin-bottom: 28px;
+      border-radius: var(--radius-card);
       border: 1px solid var(--border-subtle);
-      border-radius: 12px;
       overflow: hidden;
-      margin-bottom: 20px;
-      transition: 0.2s;
+      background: var(--bg-panel);
     }
-    .screenshot-item:hover {
-      border-color: var(--blush);
-    }
-    .screenshot-item img {
+    .screenshot-block img {
       width: 100%;
       height: auto;
       display: block;
     }
-    .screenshot-item .screenshot-caption {
-      padding: 12px 16px;
-      font-size: 0.88rem;
+    .screenshot-block .screenshot-caption {
+      padding: 14px 20px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
       color: var(--text-secondary);
       border-top: 1px solid var(--border-subtle);
       background: var(--bg-deep);
     }
-    .screenshot-item .screenshot-caption strong {
+    .screenshot-block .screenshot-caption strong {
       color: var(--mimi-pink);
     }
-    .screenshot-item .screenshot-caption code {
+    .screenshot-block .screenshot-caption code {
       background: var(--bg-panel);
       padding: 2px 8px;
       border-radius: 4px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--pink);
       font-family: var(--font-mono);
     }
@@ -514,46 +511,46 @@
         </div>
       </section>
 
-      <!-- Screenshots - One per line -->
+      <!-- Screenshots - ONE PER LINE, full width like dashboard in case 1 -->
       <section class="content-section">
         <h2>Wireshark Analysis</h2>
         <p>Screenshots from the packet analysis showing key findings and filter usage.</p>
 
         <!-- Screenshot 1 -->
-        <div class="screenshot-item">
-          <img src="screenshots/Wireshark-Isolate-Victim-Host.png" alt="Wireshark capture isolating victim host traffic" onerror="this.style.display='none'" />
+        <div class="screenshot-block">
+          <img src="screenshots/Wireshark-Isolate-Victim-Host.png" alt="Wireshark capture isolating victim host traffic" />
           <div class="screenshot-caption">
             <strong>Isolate Victim Host</strong> — This capture isolates all inbound and outbound network traffic for the target machine by using the display filter <code>ip.addr == 192.168.10.45</code>.
           </div>
         </div>
 
         <!-- Screenshot 2 -->
-        <div class="screenshot-item">
-          <img src="screenshots/Wireshark-DNS-Activity.png" alt="Wireshark capture showing DNS activity" onerror="this.style.display='none'" />
+        <div class="screenshot-block">
+          <img src="screenshots/Wireshark-DNS-Activity.png" alt="Wireshark capture showing DNS activity" />
           <div class="screenshot-caption">
             <strong>DNS Activity</strong> — This capture isolates all Domain Name System (DNS) query and response traffic by using the display filter <code>dns</code>.
           </div>
         </div>
 
         <!-- Screenshot 3 -->
-        <div class="screenshot-item">
-          <img src="screenshots/Wireshark-Detect-Reconnaissance.png" alt="Wireshark capture showing reconnaissance activity" onerror="this.style.display='none'" />
+        <div class="screenshot-block">
+          <img src="screenshots/Wireshark-Detect-Reconnaissance.png" alt="Wireshark capture showing reconnaissance activity" />
           <div class="screenshot-caption">
             <strong>Detect Reconnaissance</strong> — This capture isolates initial TCP connection requests (SYN packets) to identify potential port scanning or reconnaissance activity by using the display filter <code>tcp.flags.syn == 1 and tcp.flags.ack == 0</code>.
           </div>
         </div>
 
         <!-- Screenshot 4 -->
-        <div class="screenshot-item">
-          <img src="screenshots/Wireshark-Detect-Large-Outbound-Transfers.png" alt="Wireshark capture showing large outbound transfers" onerror="this.style.display='none'" />
+        <div class="screenshot-block">
+          <img src="screenshots/Wireshark-Detect-Large-Outbound-Transfers.png" alt="Wireshark capture showing large outbound transfers" />
           <div class="screenshot-caption">
             <strong>Detect Large Outbound Transfers</strong> — This capture isolates large outbound data packets originating from the target machine to identify potential data exfiltration by using the display filter <code>ip.src == 192.168.10.45 and tcp.len > 1000</code>.
           </div>
         </div>
 
         <!-- Screenshot 5 -->
-        <div class="screenshot-item">
-          <img src="screenshots/Wireshark-Command-Control-Unusual-Ports.png" alt="Wireshark capture showing C2 activity on port 4444" onerror="this.style.display='none'" />
+        <div class="screenshot-block">
+          <img src="screenshots/Wireshark-Command-Control-Unusual-Ports.png" alt="Wireshark capture showing C2 activity on port 4444" />
           <div class="screenshot-caption">
             <strong>Command &amp; Control (C2) Activity</strong> — This capture isolates network traffic over a commonly used reverse shell port to identify potential Command and Control (C2) activity by using the display filter <code>tcp.port == 4444</code>.
           </div>
