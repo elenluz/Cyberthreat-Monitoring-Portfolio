@@ -45,7 +45,6 @@
     a { color: inherit; text-decoration: none; }
     .wrap { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
 
-    /* ----- status bar ----- */
     .status-bar {
       background: var(--bg-panel);
       border-bottom: 1px solid var(--border-subtle);
@@ -77,7 +76,6 @@
       50% { opacity: 0.3; transform: scale(0.85); }
     }
 
-    /* ----- nav ----- */
     nav {
       position: sticky;
       top: 0;
@@ -124,7 +122,6 @@
       .nav-links .back-link { padding: 3px 12px; font-size: 0.7rem; }
     }
 
-    /* ----- case header ----- */
     .case-header {
       padding: 60px 0 40px;
       border-bottom: 1px solid var(--border-subtle);
@@ -177,14 +174,11 @@
       background: rgba(198, 186, 222, 0.08);
     }
 
-    /* ----- content ----- */
     .case-body { padding: 48px 0 80px; }
-
     .content-section {
       margin-bottom: 44px;
     }
     .content-section:last-child { margin-bottom: 0; }
-
     .content-section h2 {
       font-family: var(--font-serif);
       font-size: 1.6rem;
@@ -194,7 +188,6 @@
       border-bottom: 1px solid var(--border-subtle);
       padding-bottom: 10px;
     }
-
     .content-section h3 {
       font-family: var(--font-serif);
       font-size: 1.2rem;
@@ -202,14 +195,12 @@
       color: var(--pink);
       margin: 24px 0 12px;
     }
-
     .content-section p {
       color: var(--text-secondary);
       font-size: 1rem;
       margin-bottom: 14px;
       line-height: 1.8;
     }
-
     .content-section ul, .content-section ol {
       color: var(--text-secondary);
       padding-left: 24px;
@@ -220,7 +211,6 @@
     }
     .content-section ul li::marker { color: var(--blush); }
 
-    /* workflow diagram */
     .workflow {
       display: flex;
       flex-wrap: wrap;
@@ -248,7 +238,6 @@
       font-size: 1.2rem;
     }
 
-    /* table */
     .table-wrap {
       overflow-x: auto;
       margin: 16px 0 24px;
@@ -310,7 +299,6 @@
       border: 1px solid var(--thistle);
     }
 
-    /* expandable rows */
     .expand-row {
       cursor: pointer;
       transition: 0.2s;
@@ -382,7 +370,6 @@
       color: var(--mimi-pink);
     }
 
-    /* report section */
     .report-section {
       margin-top: 16px;
       padding-top: 16px;
@@ -434,7 +421,6 @@
       color: var(--thistle);
     }
 
-    /* skill chips */
     .skill-chips {
       display: flex;
       flex-wrap: wrap;
@@ -451,7 +437,6 @@
       padding: 5px 16px;
     }
 
-    /* reflection */
     .reflection-box {
       background: var(--bg-panel);
       border-radius: var(--radius-card);
@@ -472,7 +457,6 @@
     }
     .file-link:hover { color: var(--blush); }
 
-    /* footer */
     footer {
       padding: 32px 0;
       text-align: center;
@@ -491,7 +475,6 @@
 </head>
 <body>
 
-  <!-- status -->
   <div class="status-bar">
     <div class="wrap">
       <span><span class="status-dot"></span>TRAINING · ACTIVE</span>
@@ -499,7 +482,6 @@
     </div>
   </div>
 
-  <!-- nav -->
   <nav>
     <div class="wrap">
       <div class="logo">⧫ <span>cyber</span>threat</div>
@@ -511,7 +493,6 @@
     </div>
   </nav>
 
-  <!-- case header -->
   <header class="case-header">
     <div class="wrap">
       <div class="case-breadcrumb">
@@ -527,17 +508,14 @@
     </div>
   </header>
 
-  <!-- case body -->
   <main class="case-body">
     <div class="wrap">
 
-      <!-- Overview -->
       <section class="content-section">
         <h2>Overview</h2>
         <p>This case covers the part of SOC work that happens <em>after</em> detection: deciding what matters, tracking it through to resolution, and writing it up clearly enough that another analyst could pick up the case cold. Findings from the <a href="../01-splunk-siem-monitoring/case1.html" class="file-link">CASE-001 Splunk dashboard work</a> fed directly into this workflow.</p>
       </section>
 
-      <!-- Workflow -->
       <section class="content-section">
         <h2>Workflow</h2>
         <div class="workflow">
@@ -562,7 +540,6 @@
         </ol>
       </section>
 
-      <!-- Triage Criteria -->
       <section class="content-section">
         <h2>Triage / Priority Criteria</h2>
         <p><em>Click any row to expand and view the full ticket details and incident report.</em></p>
@@ -576,7 +553,6 @@
               </tr>
             </thead>
             <tbody>
-              <!-- CRITICAL -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-critical">P1 – Critical</span></td>
                 <td>Active compromise, confirmed data exposure</td>
@@ -598,25 +574,19 @@
                     <div class="detail-scenario">
                       The web application firewall and Suricata IDS both logged alerts against the Frothly web server. External IP <code>45.77.65.211</code> was observed sending crafted HTTP requests containing SQL injection strings (<strong>UNION SELECT</strong>) targeting the web application. Two requests returned unusually large HTTP responses, suggesting the backend database may have returned unauthorized records and potential data exfiltration.
                     </div>
-
                     <div class="report-section">
                       <h5>📄 Incident Report — triage-report_severity_CRITICAL.md</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> The incident was detected when both the WAF and Suricata IDS triggered alerts regarding anomalous traffic directed at the internal Frothly web server. Log evidence confirmed a total of <strong>778 injection attempts</strong>. While defensive systems successfully blocked 4 requests, the vast majority (774 requests) returned an <strong>HTTP 200 OK</strong>. At least two of these successful requests generated unusually large response bodies exceeding <strong>90 KB</strong>, confirming data exfiltration.</p>
-
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">IP: 45.77.65.211</span>
                           <span class="ioc-tag">Host: 172.31.38.181</span>
                           <span class="ioc-tag">SQL Injection: UNION SELECT</span>
                         </div>
-
                         <p><strong>Containment:</strong> Block attacker IP at perimeter firewall and WAF. Suspend affected web application. Rotate database service account credentials.</p>
-
                         <p><strong>Eradication:</strong> Identify vulnerable input parameter and remediate SQL injection flaw using parameterized queries. Harden WAF ruleset.</p>
-
                         <p><strong>Recovery:</strong> Perform forensic audit of web and database logs. Notify stakeholders if sensitive data confirmed exfiltrated. Restore from known-good backup.</p>
-
                         <p><strong>Lessons Learned:</strong> WAF must be transitioned to active blocking mode for high-confidence SQLi signatures. Refine alerting thresholds for anomalous response sizes to detect data-returning SQLi attempts earlier.</p>
                       </div>
                     </div>
@@ -624,7 +594,6 @@
                 </td>
               </tr>
 
-              <!-- HIGH -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-high">P2 – High</span></td>
                 <td>Strong indicator of compromise, no confirmed impact yet</td>
@@ -646,25 +615,19 @@
                     <div class="detail-scenario">
                       A Frothly employee reported receiving a suspicious email containing a password-protected attachment (<strong>invoice.zip</strong>). The mail gateway flagged the message and SPF verification for the sender failed; the sender domain appears recently registered. The user opened the document, triggering the execution of malicious code via MS Word.
                     </div>
-
                     <div class="report-section">
                       <h5>📄 Incident Report — triage-report_severity_HIGH.md</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> A spearphishing email with a password-protected attachment was delivered to the environment. The user opened the document, triggering the execution of malicious code via MS Word. Indicators of suspicious behavior were observed on the affected host and in email headers.</p>
-
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">File: invoice.zip</span>
                           <span class="ioc-tag">File: invoice.doc (Trojan)</span>
                           <span class="ioc-tag">Sender: jsmith@urinalysis.com</span>
                         </div>
-
                         <p><strong>Containment:</strong> Immediately isolate affected workstation. Block sender domain at email gateway.</p>
-
                         <p><strong>Eradication:</strong> Scan endpoint to remove malicious file. Disable compromised user account <code>billy.tun</code> and reset password.</p>
-
                         <p><strong>Recovery:</strong> Re-image workstation from secure baseline. Monitor environment for anomalous traffic patterns.</p>
-
                         <p><strong>Lessons Learned:</strong> Initial delivery bypassed AV/Mail Gateway due to password protection. Requires improved inspection of password-protected attachments at mail gateways and behavioral monitoring of spawned processes from MS Word.</p>
                       </div>
                     </div>
@@ -672,7 +635,6 @@
                 </td>
               </tr>
 
-              <!-- MEDIUM -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-medium">P3 – Medium</span></td>
                 <td>Suspicious but plausible benign explanation</td>
@@ -694,12 +656,10 @@
                     <div class="detail-scenario">
                       Windows Security logs on a Frothly Domain Controller recorded hundreds of consecutive failed logon attempts against the <strong>Administrator</strong> account from a single external IP address late at night. The attempts were followed by a successful logon from the same IP using Remote Desktop Protocol. A successful RDP logon to a Domain Controller by an external IP is a critical severity incident requiring immediate escalation.
                     </div>
-
                     <div class="report-section">
                       <h5>📄 Incident Report — triage-report_severity_MEDIUM.md</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> A sophisticated, multi-stage attack was detected against the Frothly Domain Controller. The incident began with the compromise of host <code>10.0.1.100</code> (Patient Zero), which was used to perform automated lateral movement and brute-force reconnaissance against the internal network. This culminated in a successful interactive compromise of the <strong>Administrator</strong> account by an external threat actor.</p>
-
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">IP: 71.39.18.121</span>
@@ -707,13 +667,9 @@
                           <span class="ioc-tag">Account: Administrator</span>
                           <span class="ioc-tag">Lateral Movement: 10.0.2.109, 10.0.1.101, 10.0.2.107</span>
                         </div>
-
                         <p><strong>Containment:</strong> Immediately isolate <code>10.0.1.100</code>. Block <code>71.39.18.121</code> at perimeter firewall. Disable compromised Administrator account.</p>
-
                         <p><strong>Eradication:</strong> Mandatory password resets for Administrator account and all accounts that logged into <code>10.0.1.100</code>. Execute KRBTGT password reset (twice). Audit for newly created accounts and persistence mechanisms.</p>
-
                         <p><strong>Recovery:</strong> Re-image affected hosts. Strictly limit RDP access using VPN + MFA. Continue enhanced monitoring for anomalous logon activity.</p>
-
                         <p><strong>Lessons Learned:</strong> Environment lacked automated alerting for high-volume failed logon attempts. Domain Controller was directly exposed to the internet via RDP. Need threshold-based alerts and Zero Trust approach for administrative RDP access.</p>
                       </div>
                     </div>
@@ -721,7 +677,6 @@
                 </td>
               </tr>
 
-              <!-- LOW -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-low">P4 – Low</span></td>
                 <td>Informational / noise, logged for trend tracking</td>
@@ -743,17 +698,122 @@
                     <div class="detail-scenario">
                       Proxy and HTTP stream logs show a Frothly workstation visiting a legitimate website that triggered a redirect chain through multiple hops ending at a suspicious external domain. A JavaScript file was downloaded followed by a Windows executable. No antivirus alert was generated at the time, highlighting a detection gap. The executable filename mimics a legitimate system service.
                     </div>
-
                     <div class="report-section">
                       <h5>📄 Incident Report — triage-report_severity_LOW.md</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> A Frothly workstation (<code>10.0.2.109</code>) was compromised via a drive-by browser exploit. The workstation visited <code>www.brewertalk.com</code> which redirected through a malicious chain that delivered an XSS payload. The payload exfiltrated the user's authentication/session cookie to the attacker-controlled server at <code>45.77.65.211</code>. The attacker hijacked the authenticated session and created a rogue account named <strong>klagerfield</strong>.</p>
-
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">IP: 45.77.65.211</span>
                           <span class="ioc-tag">Domain: www.brewertalk.com</span>
                           <span class="ioc-tag">Account: klagerfield</span>
                         </div>
+                        <p><strong>Containment:</strong> Block traffic to/from <code>45.77.65.211</code> at perimeter firewall and via DNS filtering. Block <code>www.brewertalk.com</code> until confirmed clean.</p>
+                        <p><strong>Eradication:</strong> Disable unauthorized account <code>klagerfield</code> and invalidate all active sessions. Revoke elevated privileges and remove artifacts. Scan affected host for browser-based or fileless persistence.</p>
+                        <p><strong>Recovery:</strong> Remediate XSS vulnerability with proper input validation and output encoding. Apply Content Security Policy. Re-image compromised workstation if needed. Rotate affected user credentials.</p>
+                        <p><strong>Lessons Learned:</strong> Lack of browser/endpoint telemetry for suspicious script execution and reliance on signature-based AV allowed the XSS-driven session hijack to proceed undetected. Implement DNS filtering, browser isolation, and improved session token protections.</p>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-                        <p><strong>Containment:</strong> Block traffic to/from <code>
+      <!-- SKILLS SECTION (ADDED) -->
+      <section class="content-section">
+        <h2>Skills Demonstrated</h2>
+        <ul>
+          <li><strong>Alert triage and prioritization</strong> under a defined framework</li>
+          <li><strong>Ticketing/case management</strong> workflow</li>
+          <li><strong>Incident report writing</strong> (summary, timeline, IOCs, recommendations)</li>
+          <li><strong>Clear, audience-aware technical communication</strong></li>
+        </ul>
+      </section>
+
+      <!-- REFLECTION SECTION (ADDED) -->
+      <section class="content-section">
+        <h2>Reflection</h2>
+        <div class="reflection-box">
+          <p>Translating the technical findings into an actionable ticket required careful judgment to accurately assign the severity and prioritize the response. Going forward, I would like to integrate more automated threat intelligence lookups directly into the reporting workflow to speed up the triage process.</p>
+        </div>
+      </section>
+
+      <!-- BACK LINKS -->
+      <section class="content-section" style="border-top: 1px solid var(--border-subtle); padding-top: 24px;">
+        <div class="evidence">
+          📁 <a href="../index.html" class="file-link">← Back to Portfolio</a> · 
+          <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/02-incident-response" target="_blank" rel="noopener" class="file-link">View source on GitHub →</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    CASE-002 · Incident Triage, Ticketing &amp; Reporting · © 2026 Elen Luz N. Gayondato
+  </footer>
+
+  <!-- JAVASCRIPT FOR EXPAND/COLLAPSE -->
+  <script>
+    function toggleExpand(row) {
+      // Find the next row (which contains the expand-detail)
+      var nextRow = row.nextElementSibling;
+      if (!nextRow) return;
+      
+      var detail = nextRow.querySelector('.expand-detail');
+      var icon = row.querySelector('.expand-icon');
+      
+      if (!detail) return;
+      
+      // Toggle the detail
+      if (detail.classList.contains('open')) {
+        detail.classList.remove('open');
+        if (icon) icon.classList.remove('open');
+      } else {
+        // Close any other open details first
+        var allDetails = document.querySelectorAll('.expand-detail.open');
+        allDetails.forEach(function(d) {
+          d.classList.remove('open');
+          var parentRow = d.closest('tr');
+          if (parentRow) {
+            var prevRow = parentRow.previousElementSibling;
+            if (prevRow && prevRow.classList.contains('expand-row')) {
+              var prevIcon = prevRow.querySelector('.expand-icon');
+              if (prevIcon) prevIcon.classList.remove('open');
+            }
+          }
+        });
+        
+        // Open this one
+        detail.classList.add('open');
+        if (icon) icon.classList.add('open');
+      }
+    }
+
+    // Optional: Close all details when clicking outside
+    document.addEventListener('click', function(e) {
+      var isExpandRow = e.target.closest('.expand-row');
+      var isDetail = e.target.closest('.expand-detail');
+      
+      if (!isExpandRow && !isDetail) {
+        var allDetails = document.querySelectorAll('.expand-detail.open');
+        allDetails.forEach(function(d) {
+          d.classList.remove('open');
+          var parentRow = d.closest('tr');
+          if (parentRow) {
+            var prevRow = parentRow.previousElementSibling;
+            if (prevRow && prevRow.classList.contains('expand-row')) {
+              var prevIcon = prevRow.querySelector('.expand-icon');
+              if (prevIcon) prevIcon.classList.remove('open');
+            }
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
