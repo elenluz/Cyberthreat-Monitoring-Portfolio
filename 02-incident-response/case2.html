@@ -326,54 +326,108 @@
     .expand-detail.open {
       display: block;
     }
-    .expand-detail h4 {
+
+    /* ===== TICKET SECTION ===== */
+    .ticket-section {
+      background: var(--bg-panel);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--blush);
+    }
+    .ticket-section .ticket-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blush);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .ticket-section h4 {
       font-family: var(--font-serif);
       color: var(--mimi-pink);
       font-size: 1rem;
       font-weight: 400;
       margin-bottom: 10px;
     }
-    .expand-detail .detail-meta {
+    .ticket-section .detail-meta {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4px 20px;
       font-size: 0.88rem;
       margin-bottom: 12px;
     }
-    .expand-detail .detail-meta .label {
+    .ticket-section .detail-meta .label {
       color: var(--text-muted);
       font-family: var(--font-mono);
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
-    .expand-detail .detail-meta .value {
+    .ticket-section .detail-meta .value {
       color: var(--text-secondary);
     }
-    .expand-detail .detail-meta .value code {
-      background: var(--bg-panel);
+    .ticket-section .detail-meta .value code {
+      background: var(--bg-deep);
       padding: 1px 8px;
       border-radius: 4px;
       font-size: 0.8rem;
       color: var(--pink);
     }
-    .expand-detail .detail-scenario {
+    .ticket-section .detail-scenario {
       color: var(--text-secondary);
       font-size: 0.92rem;
       padding: 12px 16px;
-      background: var(--bg-panel);
+      background: var(--bg-deep);
       border-radius: 8px;
-      border-left: 3px solid var(--blush);
+      border-left: 3px solid var(--pink);
       margin-top: 6px;
     }
-    .expand-detail .detail-scenario strong {
+    .ticket-section .detail-scenario strong {
       color: var(--mimi-pink);
     }
 
+    /* ===== DIVIDER BETWEEN TICKET & REPORT ===== */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0 18px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+    .section-divider .divider-icon {
+      color: var(--blush);
+      font-size: 1rem;
+    }
+
+    /* ===== REPORT SECTION ===== */
     .report-section {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-panel);
+      border-radius: 12px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--thistle);
+      margin-top: 4px;
+    }
+    .report-section .report-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--thistle);
+      display: block;
+      margin-bottom: 10px;
     }
     .report-section h5 {
       font-family: var(--font-serif);
@@ -398,7 +452,7 @@
       color: var(--mimi-pink);
     }
     .report-section .report-content code {
-      background: var(--bg-panel);
+      background: var(--bg-deep);
       padding: 1px 8px;
       border-radius: 4px;
       font-size: 0.8rem;
@@ -414,7 +468,7 @@
     .ioc-tag {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      background: var(--bg-panel);
+      background: var(--bg-deep);
       border: 1px solid var(--border-subtle);
       border-radius: 40px;
       padding: 3px 14px;
@@ -553,6 +607,7 @@
               </tr>
             </thead>
             <tbody>
+              <!-- CRITICAL -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-critical">P1 – Critical</span></td>
                 <td>Active compromise, confirmed data exposure</td>
@@ -563,30 +618,50 @@
               <tr>
                 <td colspan="3">
                   <div class="expand-detail">
-                    <div class="detail-meta">
-                      <span><span class="label">Date &amp; Time</span><br /><span class="value">August 11, 2017, 2:40 PM</span></span>
-                      <span><span class="label">Kill Chain Phase</span><br /><span class="value">Exploitation</span></span>
-                      <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1190</code> · <code>T1059.001</code></span></span>
-                      <span><span class="label">Affected Host</span><br /><span class="value"><code>172.31.38.181</code></span></span>
-                      <span><span class="label">Attacker IP</span><br /><span class="value"><code>45.77.65.211</code></span></span>
+                    <!-- TICKET SECTION -->
+                    <div class="ticket-section">
+                      <span class="ticket-label">🎫 TICKET — TKT-003</span>
+                      <h4>SQL Injection Attack on E-Commerce Web Application</h4>
+                      <div class="detail-meta">
+                        <span><span class="label">Date &amp; Time</span><br /><span class="value">August 11, 2017, 2:40 PM</span></span>
+                        <span><span class="label">Kill Chain Phase</span><br /><span class="value">Exploitation</span></span>
+                        <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1190</code> · <code>T1059.001</code></span></span>
+                        <span><span class="label">Affected Host</span><br /><span class="value"><code>172.31.38.181</code></span></span>
+                        <span><span class="label">Attacker IP</span><br /><span class="value"><code>45.77.65.211</code></span></span>
+                      </div>
+                      <h4>📋 Scenario</h4>
+                      <div class="detail-scenario">
+                        The web application firewall and Suricata IDS both logged alerts against the Frothly web server. External IP <code>45.77.65.211</code> was observed sending crafted HTTP requests containing SQL injection strings (<strong>UNION SELECT</strong>) targeting the web application. Two requests returned unusually large HTTP responses, suggesting the backend database may have returned unauthorized records and potential data exfiltration.
+                      </div>
                     </div>
-                    <h4>📋 Scenario</h4>
-                    <div class="detail-scenario">
-                      The web application firewall and Suricata IDS both logged alerts against the Frothly web server. External IP <code>45.77.65.211</code> was observed sending crafted HTTP requests containing SQL injection strings (<strong>UNION SELECT</strong>) targeting the web application. Two requests returned unusually large HTTP responses, suggesting the backend database may have returned unauthorized records and potential data exfiltration.
+
+                    <!-- DIVIDER -->
+                    <div class="section-divider">
+                      <span class="divider-icon">⬇</span>
+                      <span>Ticket → Report</span>
+                      <span class="divider-icon">⬇</span>
                     </div>
+
+                    <!-- REPORT SECTION -->
                     <div class="report-section">
-                      <h5>📄 Incident Report — triage-report_severity_CRITICAL.md</h5>
+                      <span class="report-label">📄 INCIDENT REPORT — triage-report_severity_CRITICAL.md</span>
+                      <h5>Executive Summary</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> The incident was detected when both the WAF and Suricata IDS triggered alerts regarding anomalous traffic directed at the internal Frothly web server. Log evidence confirmed a total of <strong>778 injection attempts</strong>. While defensive systems successfully blocked 4 requests, the vast majority (774 requests) returned an <strong>HTTP 200 OK</strong>. At least two of these successful requests generated unusually large response bodies exceeding <strong>90 KB</strong>, confirming data exfiltration.</p>
+
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">IP: 45.77.65.211</span>
                           <span class="ioc-tag">Host: 172.31.38.181</span>
                           <span class="ioc-tag">SQL Injection: UNION SELECT</span>
                         </div>
+
                         <p><strong>Containment:</strong> Block attacker IP at perimeter firewall and WAF. Suspend affected web application. Rotate database service account credentials.</p>
+
                         <p><strong>Eradication:</strong> Identify vulnerable input parameter and remediate SQL injection flaw using parameterized queries. Harden WAF ruleset.</p>
+
                         <p><strong>Recovery:</strong> Perform forensic audit of web and database logs. Notify stakeholders if sensitive data confirmed exfiltrated. Restore from known-good backup.</p>
+
                         <p><strong>Lessons Learned:</strong> WAF must be transitioned to active blocking mode for high-confidence SQLi signatures. Refine alerting thresholds for anomalous response sizes to detect data-returning SQLi attempts earlier.</p>
                       </div>
                     </div>
@@ -594,6 +669,7 @@
                 </td>
               </tr>
 
+              <!-- HIGH -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-high">P2 – High</span></td>
                 <td>Strong indicator of compromise, no confirmed impact yet</td>
@@ -604,30 +680,47 @@
               <tr>
                 <td colspan="3">
                   <div class="expand-detail">
-                    <div class="detail-meta">
-                      <span><span class="label">Date &amp; Time</span><br /><span class="value">August 24, 2017, 3:27 AM</span></span>
-                      <span><span class="label">Kill Chain Phase</span><br /><span class="value">Delivery</span></span>
-                      <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1566.001</code> · <code>T1203</code></span></span>
-                      <span><span class="label">Affected Host</span><br /><span class="value"><code>wrk-btun (billy.tun)</code></span></span>
-                      <span><span class="label">Sender</span><br /><span class="value"><code>jsmith@urinalysis.com</code></span></span>
+                    <div class="ticket-section">
+                      <span class="ticket-label">🎫 TICKET — TKT-002</span>
+                      <h4>Suspicious Phishing Email With Malicious Attachment</h4>
+                      <div class="detail-meta">
+                        <span><span class="label">Date &amp; Time</span><br /><span class="value">August 24, 2017, 3:27 AM</span></span>
+                        <span><span class="label">Kill Chain Phase</span><br /><span class="value">Delivery</span></span>
+                        <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1566.001</code> · <code>T1203</code></span></span>
+                        <span><span class="label">Affected Host</span><br /><span class="value"><code>wrk-btun (billy.tun)</code></span></span>
+                        <span><span class="label">Sender</span><br /><span class="value"><code>jsmith@urinalysis.com</code></span></span>
+                      </div>
+                      <h4>📋 Scenario</h4>
+                      <div class="detail-scenario">
+                        A Frothly employee reported receiving a suspicious email containing a password-protected attachment (<strong>invoice.zip</strong>). The mail gateway flagged the message and SPF verification for the sender failed; the sender domain appears recently registered. The user opened the document, triggering the execution of malicious code via MS Word.
+                      </div>
                     </div>
-                    <h4>📋 Scenario</h4>
-                    <div class="detail-scenario">
-                      A Frothly employee reported receiving a suspicious email containing a password-protected attachment (<strong>invoice.zip</strong>). The mail gateway flagged the message and SPF verification for the sender failed; the sender domain appears recently registered. The user opened the document, triggering the execution of malicious code via MS Word.
+
+                    <div class="section-divider">
+                      <span class="divider-icon">⬇</span>
+                      <span>Ticket → Report</span>
+                      <span class="divider-icon">⬇</span>
                     </div>
+
                     <div class="report-section">
-                      <h5>📄 Incident Report — triage-report_severity_HIGH.md</h5>
+                      <span class="report-label">📄 INCIDENT REPORT — triage-report_severity_HIGH.md</span>
+                      <h5>Executive Summary</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> A spearphishing email with a password-protected attachment was delivered to the environment. The user opened the document, triggering the execution of malicious code via MS Word. Indicators of suspicious behavior were observed on the affected host and in email headers.</p>
+
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">File: invoice.zip</span>
                           <span class="ioc-tag">File: invoice.doc (Trojan)</span>
                           <span class="ioc-tag">Sender: jsmith@urinalysis.com</span>
                         </div>
+
                         <p><strong>Containment:</strong> Immediately isolate affected workstation. Block sender domain at email gateway.</p>
+
                         <p><strong>Eradication:</strong> Scan endpoint to remove malicious file. Disable compromised user account <code>billy.tun</code> and reset password.</p>
+
                         <p><strong>Recovery:</strong> Re-image workstation from secure baseline. Monitor environment for anomalous traffic patterns.</p>
+
                         <p><strong>Lessons Learned:</strong> Initial delivery bypassed AV/Mail Gateway due to password protection. Requires improved inspection of password-protected attachments at mail gateways and behavioral monitoring of spawned processes from MS Word.</p>
                       </div>
                     </div>
@@ -635,6 +728,7 @@
                 </td>
               </tr>
 
+              <!-- MEDIUM -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-medium">P3 – Medium</span></td>
                 <td>Suspicious but plausible benign explanation</td>
@@ -645,21 +739,34 @@
               <tr>
                 <td colspan="3">
                   <div class="expand-detail">
-                    <div class="detail-meta">
-                      <span><span class="label">Date &amp; Time</span><br /><span class="value">June 29, 2017, 10:51 AM</span></span>
-                      <span><span class="label">Kill Chain Phase</span><br /><span class="value">Exploitation</span></span>
-                      <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1110.001</code> · <code>T1078</code></span></span>
-                      <span><span class="label">Affected Host</span><br /><span class="value"><code>10.0.1.100</code></span></span>
-                      <span><span class="label">Attacker IP</span><br /><span class="value"><code>71.39.18.121</code></span></span>
+                    <div class="ticket-section">
+                      <span class="ticket-label">🎫 TICKET — TKT-009</span>
+                      <h4>Brute-Force Authentication Attack on RDP — Successful Logon</h4>
+                      <div class="detail-meta">
+                        <span><span class="label">Date &amp; Time</span><br /><span class="value">June 29, 2017, 10:51 AM</span></span>
+                        <span><span class="label">Kill Chain Phase</span><br /><span class="value">Exploitation</span></span>
+                        <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1110.001</code> · <code>T1078</code></span></span>
+                        <span><span class="label">Affected Host</span><br /><span class="value"><code>10.0.1.100</code></span></span>
+                        <span><span class="label">Attacker IP</span><br /><span class="value"><code>71.39.18.121</code></span></span>
+                      </div>
+                      <h4>📋 Scenario</h4>
+                      <div class="detail-scenario">
+                        Windows Security logs on a Frothly Domain Controller recorded hundreds of consecutive failed logon attempts against the <strong>Administrator</strong> account from a single external IP address late at night. The attempts were followed by a successful logon from the same IP using Remote Desktop Protocol. A successful RDP logon to a Domain Controller by an external IP is a critical severity incident requiring immediate escalation.
+                      </div>
                     </div>
-                    <h4>📋 Scenario</h4>
-                    <div class="detail-scenario">
-                      Windows Security logs on a Frothly Domain Controller recorded hundreds of consecutive failed logon attempts against the <strong>Administrator</strong> account from a single external IP address late at night. The attempts were followed by a successful logon from the same IP using Remote Desktop Protocol. A successful RDP logon to a Domain Controller by an external IP is a critical severity incident requiring immediate escalation.
+
+                    <div class="section-divider">
+                      <span class="divider-icon">⬇</span>
+                      <span>Ticket → Report</span>
+                      <span class="divider-icon">⬇</span>
                     </div>
+
                     <div class="report-section">
-                      <h5>📄 Incident Report — triage-report_severity_MEDIUM.md</h5>
+                      <span class="report-label">📄 INCIDENT REPORT — triage-report_severity_MEDIUM.md</span>
+                      <h5>Executive Summary</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> A sophisticated, multi-stage attack was detected against the Frothly Domain Controller. The incident began with the compromise of host <code>10.0.1.100</code> (Patient Zero), which was used to perform automated lateral movement and brute-force reconnaissance against the internal network. This culminated in a successful interactive compromise of the <strong>Administrator</strong> account by an external threat actor.</p>
+
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">IP: 71.39.18.121</span>
@@ -667,9 +774,13 @@
                           <span class="ioc-tag">Account: Administrator</span>
                           <span class="ioc-tag">Lateral Movement: 10.0.2.109, 10.0.1.101, 10.0.2.107</span>
                         </div>
+
                         <p><strong>Containment:</strong> Immediately isolate <code>10.0.1.100</code>. Block <code>71.39.18.121</code> at perimeter firewall. Disable compromised Administrator account.</p>
+
                         <p><strong>Eradication:</strong> Mandatory password resets for Administrator account and all accounts that logged into <code>10.0.1.100</code>. Execute KRBTGT password reset (twice). Audit for newly created accounts and persistence mechanisms.</p>
+
                         <p><strong>Recovery:</strong> Re-image affected hosts. Strictly limit RDP access using VPN + MFA. Continue enhanced monitoring for anomalous logon activity.</p>
+
                         <p><strong>Lessons Learned:</strong> Environment lacked automated alerting for high-volume failed logon attempts. Domain Controller was directly exposed to the internet via RDP. Need threshold-based alerts and Zero Trust approach for administrative RDP access.</p>
                       </div>
                     </div>
@@ -677,6 +788,7 @@
                 </td>
               </tr>
 
+              <!-- LOW -->
               <tr class="expand-row" onclick="toggleExpand(this)">
                 <td><span class="priority-badge priority-low">P4 – Low</span></td>
                 <td>Informational / noise, logged for trend tracking</td>
@@ -687,30 +799,47 @@
               <tr>
                 <td colspan="3">
                   <div class="expand-detail">
-                    <div class="detail-meta">
-                      <span><span class="label">Date &amp; Time</span><br /><span class="value">August 15, 2017, 11:35 AM</span></span>
-                      <span><span class="label">Kill Chain Phase</span><br /><span class="value">Delivery</span></span>
-                      <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1189</code> · <code>T1204.001</code></span></span>
-                      <span><span class="label">Affected Host</span><br /><span class="value"><code>10.0.2.109</code></span></span>
-                      <span><span class="label">Attacker IP</span><br /><span class="value"><code>45.77.65.211</code></span></span>
+                    <div class="ticket-section">
+                      <span class="ticket-label">🎫 TICKET — TKT-010</span>
+                      <h4>Drive-By Download via Malicious Ad Network Redirect</h4>
+                      <div class="detail-meta">
+                        <span><span class="label">Date &amp; Time</span><br /><span class="value">August 15, 2017, 11:35 AM</span></span>
+                        <span><span class="label">Kill Chain Phase</span><br /><span class="value">Delivery</span></span>
+                        <span><span class="label">MITRE ATT&amp;CK</span><br /><span class="value"><code>T1189</code> · <code>T1204.001</code></span></span>
+                        <span><span class="label">Affected Host</span><br /><span class="value"><code>10.0.2.109</code></span></span>
+                        <span><span class="label">Attacker IP</span><br /><span class="value"><code>45.77.65.211</code></span></span>
+                      </div>
+                      <h4>📋 Scenario</h4>
+                      <div class="detail-scenario">
+                        Proxy and HTTP stream logs show a Frothly workstation visiting a legitimate website that triggered a redirect chain through multiple hops ending at a suspicious external domain. A JavaScript file was downloaded followed by a Windows executable. No antivirus alert was generated at the time, highlighting a detection gap. The executable filename mimics a legitimate system service.
+                      </div>
                     </div>
-                    <h4>📋 Scenario</h4>
-                    <div class="detail-scenario">
-                      Proxy and HTTP stream logs show a Frothly workstation visiting a legitimate website that triggered a redirect chain through multiple hops ending at a suspicious external domain. A JavaScript file was downloaded followed by a Windows executable. No antivirus alert was generated at the time, highlighting a detection gap. The executable filename mimics a legitimate system service.
+
+                    <div class="section-divider">
+                      <span class="divider-icon">⬇</span>
+                      <span>Ticket → Report</span>
+                      <span class="divider-icon">⬇</span>
                     </div>
+
                     <div class="report-section">
-                      <h5>📄 Incident Report — triage-report_severity_LOW.md</h5>
+                      <span class="report-label">📄 INCIDENT REPORT — triage-report_severity_LOW.md</span>
+                      <h5>Executive Summary</h5>
                       <div class="report-content">
                         <p><strong>Summary:</strong> A Frothly workstation (<code>10.0.2.109</code>) was compromised via a drive-by browser exploit. The workstation visited <code>www.brewertalk.com</code> which redirected through a malicious chain that delivered an XSS payload. The payload exfiltrated the user's authentication/session cookie to the attacker-controlled server at <code>45.77.65.211</code>. The attacker hijacked the authenticated session and created a rogue account named <strong>klagerfield</strong>.</p>
+
                         <p><strong>IOCs Identified:</strong></p>
                         <div class="ioc-list">
                           <span class="ioc-tag">IP: 45.77.65.211</span>
                           <span class="ioc-tag">Domain: www.brewertalk.com</span>
                           <span class="ioc-tag">Account: klagerfield</span>
                         </div>
+
                         <p><strong>Containment:</strong> Block traffic to/from <code>45.77.65.211</code> at perimeter firewall and via DNS filtering. Block <code>www.brewertalk.com</code> until confirmed clean.</p>
+
                         <p><strong>Eradication:</strong> Disable unauthorized account <code>klagerfield</code> and invalidate all active sessions. Revoke elevated privileges and remove artifacts. Scan affected host for browser-based or fileless persistence.</p>
+
                         <p><strong>Recovery:</strong> Remediate XSS vulnerability with proper input validation and output encoding. Apply Content Security Policy. Re-image compromised workstation if needed. Rotate affected user credentials.</p>
+
                         <p><strong>Lessons Learned:</strong> Lack of browser/endpoint telemetry for suspicious script execution and reliance on signature-based AV allowed the XSS-driven session hijack to proceed undetected. Implement DNS filtering, browser isolation, and improved session token protections.</p>
                       </div>
                     </div>
@@ -722,7 +851,7 @@
         </div>
       </section>
 
-      <!-- SKILLS SECTION (ADDED) -->
+      <!-- SKILLS -->
       <section class="content-section">
         <h2>Skills Demonstrated</h2>
         <ul>
@@ -733,7 +862,7 @@
         </ul>
       </section>
 
-      <!-- REFLECTION SECTION (ADDED) -->
+      <!-- REFLECTION -->
       <section class="content-section">
         <h2>Reflection</h2>
         <div class="reflection-box">
@@ -756,10 +885,8 @@
     CASE-002 · Incident Triage, Ticketing &amp; Reporting · © 2026 Elen Luz N. Gayondato
   </footer>
 
-  <!-- JAVASCRIPT FOR EXPAND/COLLAPSE -->
   <script>
     function toggleExpand(row) {
-      // Find the next row (which contains the expand-detail)
       var nextRow = row.nextElementSibling;
       if (!nextRow) return;
       
@@ -768,12 +895,10 @@
       
       if (!detail) return;
       
-      // Toggle the detail
       if (detail.classList.contains('open')) {
         detail.classList.remove('open');
         if (icon) icon.classList.remove('open');
       } else {
-        // Close any other open details first
         var allDetails = document.querySelectorAll('.expand-detail.open');
         allDetails.forEach(function(d) {
           d.classList.remove('open');
@@ -787,13 +912,11 @@
           }
         });
         
-        // Open this one
         detail.classList.add('open');
         if (icon) icon.classList.add('open');
       }
     }
 
-    // Optional: Close all details when clicking outside
     document.addEventListener('click', function(e) {
       var isExpandRow = e.target.closest('.expand-row');
       var isDetail = e.target.closest('.expand-detail');
