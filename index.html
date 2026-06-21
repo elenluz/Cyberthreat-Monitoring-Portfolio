@@ -6,9 +6,9 @@
   <title>Elen Luz N. Gayondato · cyberthreat portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    /* ----- reset & palette (coolors inspired) ----- */
+    /* ----- reset & palette (your pink/purple palette) ----- */
     * {
       margin: 0;
       padding: 0;
@@ -16,25 +16,24 @@
     }
 
     :root {
-      --bg-deep: #2d1b3d;        /* deep plum */
-      --bg-panel: #3f2a52;        /* english violet */
-      --bg-panel-hover: #4f3665;
-      --border-subtle: #5e4277;
+      --bg-deep: #2d1b3d;        
+      --bg-panel: #3f2a52;        
+      --bg-panel-hover: #513a67;
+      --bg-card: #4a3160;
+      --border-subtle: #6a4d82;
       --text-primary: #f9f0fa;
       --text-secondary: #e6d8ed;
       --text-muted: #b89fc9;
-      --accent-blush: #de638a;    /* blush */
-      --accent-blush-dim: rgba(222, 99, 138, 0.18);
-      --accent-pink: #f7b9c4;     /* pink */
-      --accent-pink-dim: rgba(247, 185, 196, 0.15);
-      --accent-mimi: #f3d9e5;     /* mimi pink */
-      --accent-thistle: #c6bade;  /* thistle */
-      --accent-thistle-dim: rgba(198, 186, 222, 0.15);
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --font-display: 'Space Grotesk', sans-serif;
+      --purple-deep: #4A3267;     
+      --blush: #DE638A;           
+      --pink: #F7B9C4;            
+      --mimi-pink: #F3D9E5;       
+      --thistle: #C6BADE;         
+      --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'DM Serif Display', serif;
       --font-mono: 'JetBrains Mono', monospace;
       --container: 1020px;
-      --radius-card: 24px;
+      --radius-card: 20px;
     }
 
     body {
@@ -42,30 +41,21 @@
       color: var(--text-primary);
       font-family: var(--font-sans);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--container); margin: 0 auto; padding: 0 28px; }
 
-    .wrap {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-
-    /* ----- status bar (mono) ----- */
+    /* ----- status bar ----- */
     .status-bar {
       background: var(--bg-panel);
       border-bottom: 1px solid var(--border-subtle);
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
-      padding: 8px 0;
+      padding: 10px 0;
     }
     .status-bar .wrap {
       display: flex;
@@ -79,101 +69,91 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--accent-pink);
+      background: var(--blush);
       margin-right: 10px;
-      animation: pulse-dot 2.4s infinite ease-in-out;
+      animation: pulse 2.4s infinite ease-in-out;
     }
-    @keyframes pulse-dot {
+    @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.3; transform: scale(0.85); }
     }
 
-    /* ----- nav (glass) ----- */
+    /* ----- nav ----- */
     nav {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(45, 27, 61, 0.82);
-      backdrop-filter: blur(14px);
+      background: rgba(45, 27, 61, 0.88);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-subtle);
     }
     nav .wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
+      padding: 16px 0;
     }
     .logo {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: -0.01em;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-style: italic;
     }
-    .logo span {
-      color: var(--accent-blush);
-    }
+    .logo span { color: var(--pink); }
     .nav-links {
       display: flex;
       gap: 32px;
       list-style: none;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 500;
       color: var(--text-secondary);
     }
-    .nav-links a:hover {
-      color: var(--accent-pink);
-    }
+    .nav-links a:hover { color: var(--pink); }
     @media (max-width: 640px) {
-      .nav-links { gap: 16px; font-size: 0.78rem; flex-wrap: wrap; }
+      .nav-links { gap: 14px; font-size: 0.75rem; flex-wrap: wrap; }
     }
 
     /* ----- shared ----- */
-    section {
-      padding: 88px 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
+    section { padding: 88px 0; border-bottom: 1px solid var(--border-subtle); }
     .eyebrow {
       font-family: var(--font-mono);
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.72rem;
-      color: var(--accent-pink);
-      margin-bottom: 12px;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      color: var(--pink);
+      margin-bottom: 10px;
       display: block;
     }
     h2 {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
       margin: 0 0 36px;
       line-height: 1.15;
     }
 
-    /* ----- hero (new layout) ----- */
+    /* ----- hero (completely new layout) ----- */
     .hero {
-      padding: 104px 0 80px;
+      padding: 100px 0 80px;
       border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(ellipse at 70% 20%, rgba(222, 99, 138, 0.08), transparent 60%);
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 56px;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
       align-items: center;
     }
-    @media (max-width: 760px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
-    }
+    @media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
     .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5.5vw, 3.8rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 400;
       line-height: 1.08;
-      margin: 0 0 16px;
+      margin: 0 0 18px;
     }
     .hero h1 .highlight {
-      background: linear-gradient(135deg, var(--accent-blush), var(--accent-pink));
+      background: linear-gradient(135deg, var(--blush), var(--pink));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -181,91 +161,82 @@
     .hero p.sub {
       font-size: 1.05rem;
       color: var(--text-secondary);
-      max-width: 520px;
+      max-width: 480px;
       margin: 0 0 32px;
+      line-height: 1.7;
     }
+
     .hero-stats {
       display: flex;
-      gap: 32px;
-      margin-top: 8px;
+      gap: 40px;
     }
     .hero-stat {
       font-family: var(--font-mono);
       font-size: 0.8rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
     }
     .hero-stat strong {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--accent-mimi);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--mimi-pink);
       display: block;
-      font-family: var(--font-display);
+      font-family: var(--font-serif);
     }
-    .hero-right {
+
+    /* quick access cards */
+    .quick-access {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .qa-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-card);
-      padding: 28px 32px;
-    }
-    .hero-right h4 {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-    .hero-ticket {
+      border-radius: 14px;
+      padding: 16px 18px;
+      transition: 0.25s ease;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-subtle);
-      transition: 0.2s;
+      gap: 12px;
     }
-    .hero-ticket:last-child { border-bottom: none; }
-    .hero-ticket:hover { padding-left: 6px; }
-    .hero-ticket .badge {
+    .qa-card:hover {
+      background: var(--bg-panel-hover);
+      border-color: var(--blush);
+      transform: translateY(-2px);
+    }
+    .qa-badge {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       text-transform: uppercase;
-      padding: 3px 12px;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
       border-radius: 40px;
       border: 1px solid currentColor;
       white-space: nowrap;
     }
-    .badge-blush { color: var(--accent-blush); background: var(--accent-blush-dim); }
-    .badge-pink { color: var(--accent-pink); background: var(--accent-pink-dim); }
-    .badge-thistle { color: var(--accent-thistle); background: var(--accent-thistle-dim); }
-    .hero-ticket .ticket-label {
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
+    .qa-badge-blush { color: var(--blush); background: rgba(222, 99, 138, 0.15); }
+    .qa-badge-pink { color: var(--pink); background: rgba(247, 185, 196, 0.12); }
+    .qa-badge-thistle { color: var(--thistle); background: rgba(198, 186, 222, 0.12); }
+    .qa-label { font-weight: 500; font-size: 0.85rem; }
 
     /* ----- about (new) ----- */
     .about-grid {
       display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 48px;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 50px;
       align-items: start;
     }
-    @media (max-width: 760px) {
-      .about-grid { grid-template-columns: 1fr; gap: 28px; }
-    }
+    @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; gap: 30px; } }
     .about-text p {
       color: var(--text-secondary);
       margin-bottom: 16px;
       font-size: 1rem;
     }
-    .about-text strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
+    .about-text strong { color: var(--text-primary); font-weight: 600; }
     .chip-cloud {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 6px;
     }
     .chip {
       font-family: var(--font-mono);
@@ -276,6 +247,7 @@
       border-radius: 40px;
       padding: 6px 16px;
     }
+    .chip:hover { border-color: var(--blush); }
     .about-side h4 {
       font-family: var(--font-mono);
       text-transform: uppercase;
@@ -285,29 +257,41 @@
       margin-bottom: 12px;
     }
 
-    /* ----- case cards (new layout) ----- */
+    /* ----- case cards (new staggered layout) ----- */
     .case-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 28px;
     }
-    @media (max-width: 680px) {
-      .case-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 680px) { .case-grid { grid-template-columns: 1fr; } }
+
     .case-card {
-      background: var(--bg-panel);
+      background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: 30px 30px 26px;
-      transition: 0.2s ease;
+      padding: 28px 28px 24px;
+      transition: 0.25s ease;
       display: flex;
       flex-direction: column;
       position: relative;
+      overflow: hidden;
     }
+    .case-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blush), var(--pink));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .case-card:hover::before { opacity: 1; }
     .case-card:hover {
-      background: var(--bg-panel-hover);
-      border-color: var(--accent-blush);
       transform: translateY(-4px);
+      border-color: var(--blush);
+      background: var(--bg-panel-hover);
     }
     .case-stamp {
       font-family: var(--font-mono);
@@ -315,14 +299,14 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--accent-pink);
-      border: 1px solid var(--accent-pink);
+      color: var(--pink);
+      border: 1px solid var(--pink);
       padding: 2px 14px;
       border-radius: 40px;
-      background: var(--accent-pink-dim);
+      background: rgba(247, 185, 196, 0.12);
       display: inline-block;
       align-self: flex-start;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .case-id {
       font-family: var(--font-mono);
@@ -333,11 +317,11 @@
       margin-bottom: 4px;
     }
     .case-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
       margin: 0 0 12px;
+      color: var(--mimi-pink);
     }
     .case-tags {
       display: flex;
@@ -347,12 +331,12 @@
     }
     .tool-chip {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       color: var(--text-secondary);
       background: var(--bg-deep);
       border: 1px solid var(--border-subtle);
       border-radius: 40px;
-      padding: 4px 14px;
+      padding: 3px 12px;
     }
     .case-card p {
       color: var(--text-secondary);
@@ -364,134 +348,128 @@
       margin: 0 0 16px;
       padding-left: 18px;
       color: var(--text-secondary);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
-    .case-card ul li {
-      margin-bottom: 6px;
-    }
-    .case-card ul li::marker {
-      color: var(--accent-blush);
-    }
+    .case-card ul li { margin-bottom: 5px; }
+    .case-card ul li::marker { color: var(--blush); }
     .skill-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 4px;
     }
     .skill-tag {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--accent-thistle);
-      background: var(--accent-thistle-dim);
-      border: 1px solid rgba(198, 186, 222, 0.25);
+      font-size: 0.62rem;
+      color: var(--thistle);
+      background: rgba(198, 186, 222, 0.12);
+      border: 1px solid rgba(198, 186, 222, 0.2);
       border-radius: 40px;
-      padding: 3px 14px;
+      padding: 3px 12px;
     }
     .evidence {
-      margin-top: 20px;
-      padding-top: 16px;
+      margin-top: 18px;
+      padding-top: 14px;
       border-top: 1px dashed var(--border-subtle);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
     }
     .evidence a {
-      color: var(--accent-pink);
+      color: var(--pink);
       text-decoration: underline;
       text-underline-offset: 3px;
       text-decoration-color: rgba(247, 185, 196, 0.3);
     }
-    .evidence a:hover { color: var(--accent-blush); }
+    .evidence a:hover { color: var(--blush); }
 
-    /* ----- timeline (grid) ----- */
+    /* ----- timeline (new layout - horizontal flow) ----- */
     .timeline-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
-    @media (max-width: 680px) {
-      .timeline-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 760px) { .timeline-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .timeline-grid { grid-template-columns: 1fr; } }
+
     .timeline-item {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: 22px 28px;
+      padding: 20px 24px;
       transition: 0.2s;
+      border-left: 3px solid var(--blush);
     }
     .timeline-item:hover {
       background: var(--bg-panel-hover);
-      border-color: var(--accent-thistle);
+      border-color: var(--pink);
+      border-left-color: var(--pink);
     }
     .timeline-day {
       font-family: var(--font-mono);
-      color: var(--accent-blush);
-      font-size: 0.7rem;
+      color: var(--blush);
+      font-size: 0.68rem;
       letter-spacing: 0.06em;
       display: block;
       margin-bottom: 4px;
     }
     .timeline-item h4 {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin: 0 0 6px;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0 0 4px;
     }
     .timeline-item p {
       color: var(--text-secondary);
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       margin: 0;
     }
 
-    /* ----- skills (new layout) ----- */
+    /* ----- skills (new layout - colored) ----- */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
-    @media (max-width: 760px) {
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .skills-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 760px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .skills-grid { grid-template-columns: 1fr; } }
+
     .skill-cat {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: 24px 22px;
+      padding: 22px 20px;
       transition: 0.2s;
+      text-align: center;
     }
     .skill-cat:hover {
       background: var(--bg-panel-hover);
-      border-color: var(--accent-pink);
+      border-color: var(--blush);
+      transform: scale(1.02);
     }
     .skill-cat h4 {
-      font-family: var(--font-display);
-      font-weight: 700;
+      font-family: var(--font-serif);
+      font-weight: 400;
       font-size: 0.95rem;
       margin-bottom: 14px;
+      color: var(--mimi-pink);
     }
-    .skill-cat .chip-cloud .chip {
-      font-size: 0.65rem;
-      padding: 4px 14px;
-    }
+    .skill-cat .chip-cloud { justify-content: center; }
+    .skill-cat .chip-cloud .chip { font-size: 0.62rem; padding: 4px 12px; }
 
-    /* ----- contact (new) ----- */
+    /* ----- contact (new layout) ----- */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 32px;
       align-items: start;
     }
-    @media (max-width: 680px) {
-      .contact-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 680px) { .contact-grid { grid-template-columns: 1fr; } }
+
     .contact-card {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: 34px 36px;
+      padding: 32px 34px;
     }
     .contact-stamp {
       font-family: var(--font-mono);
@@ -499,26 +477,26 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--accent-blush);
-      border: 1px solid var(--accent-blush);
+      color: var(--blush);
+      border: 1px solid var(--blush);
       padding: 2px 16px;
       border-radius: 40px;
-      background: var(--accent-blush-dim);
+      background: rgba(222, 99, 138, 0.12);
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .field-row {
       display: flex;
       gap: 16px;
       padding: 10px 0;
       border-bottom: 1px solid var(--border-subtle);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       align-items: baseline;
     }
     .field-row:last-of-type { border-bottom: none; }
     .field-key {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-muted);
@@ -526,25 +504,30 @@
       flex-shrink: 0;
     }
     .field-val a {
-      color: var(--accent-pink);
+      color: var(--pink);
       word-break: break-all;
     }
-    .field-val a:hover { color: var(--accent-blush); }
+    .field-val a:hover { color: var(--blush); }
+
     .contact-note {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-card);
-      padding: 34px 36px;
+      padding: 32px 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .contact-note h4 {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.1rem;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 1.2rem;
       margin-bottom: 8px;
+      color: var(--mimi-pink);
     }
     .contact-note p {
       color: var(--text-secondary);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       margin-bottom: 18px;
     }
     .pill-status {
@@ -553,10 +536,11 @@
       text-transform: uppercase;
       padding: 4px 18px;
       border-radius: 40px;
-      border: 1px solid var(--accent-pink);
-      color: var(--accent-pink);
-      background: var(--accent-pink-dim);
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      background: rgba(247, 185, 196, 0.1);
       display: inline-block;
+      align-self: flex-start;
     }
 
     footer {
@@ -568,10 +552,10 @@
       border-top: 1px solid var(--border-subtle);
     }
 
-    /* fade-in helper */
+    /* fade-in */
     .fade-in {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(16px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .fade-in.is-visible {
@@ -604,7 +588,7 @@
     </div>
   </nav>
 
-  <!-- hero (new layout) -->
+  <!-- hero -->
   <header class="hero">
     <div class="wrap">
       <div class="hero-grid">
@@ -621,23 +605,22 @@
             <div class="hero-stat"><strong>6</strong> tools</div>
           </div>
         </div>
-        <div class="hero-right">
-          <h4>quick access</h4>
-          <a href="#case-001" class="hero-ticket">
-            <span class="badge badge-blush">detection</span>
-            <span class="ticket-label">SIEM Threat Detection</span>
+        <div class="quick-access">
+          <a href="#case-001" class="qa-card">
+            <span class="qa-badge qa-badge-blush">detection</span>
+            <span class="qa-label">SIEM Threat Detection</span>
           </a>
-          <a href="#case-002" class="hero-ticket">
-            <span class="badge badge-pink">IR</span>
-            <span class="ticket-label">Incident Response</span>
+          <a href="#case-002" class="qa-card">
+            <span class="qa-badge qa-badge-pink">IR</span>
+            <span class="qa-label">Incident Response</span>
           </a>
-          <a href="#case-003" class="hero-ticket">
-            <span class="badge badge-blush">forensics</span>
-            <span class="ticket-label">Wireshark Analysis</span>
+          <a href="#case-003" class="qa-card">
+            <span class="qa-badge qa-badge-blush">forensics</span>
+            <span class="qa-label">Wireshark Analysis</span>
           </a>
-          <a href="#case-004" class="hero-ticket">
-            <span class="badge badge-thistle">adversary</span>
-            <span class="ticket-label">Kali Honeypot</span>
+          <a href="#case-004" class="qa-card">
+            <span class="qa-badge qa-badge-thistle">adversary</span>
+            <span class="qa-label">Kali Honeypot</span>
           </a>
         </div>
       </div>
@@ -669,13 +652,12 @@
     </div>
   </section>
 
-  <!-- cases (grid layout) -->
+  <!-- cases -->
   <section id="cases">
     <div class="wrap">
       <span class="eyebrow">04 investigations logged</span>
       <h2>Case files</h2>
       <div class="case-grid">
-        <!-- case 1 -->
         <article class="case-card" id="case-001">
           <span class="case-stamp">documented</span>
           <span class="case-id">CASE-001</span>
@@ -689,7 +671,7 @@
           <ul>
             <li>Ingested and explored the BOTSv2 dataset in Splunk</li>
             <li>Wrote SPL queries to surface IoCs (auth spikes, process anomalies)</li>
-            <li>Designed dashboards with time‑range controls for fast read</li>
+            <li>Designed dashboards with time‑range controls</li>
             <li>Rehearsed live demo for non‑technical audience</li>
           </ul>
           <div class="skill-tags">
@@ -697,10 +679,9 @@
             <span class="skill-tag">Log Correlation</span>
             <span class="skill-tag">Dashboard Design</span>
           </div>
-          <div class="evidence">📁 <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/01-splunk-siem-monitoring" target="_blank" rel="noopener">/01-splunk-siem-monitoring</a></div>
+          <div class="evidence">📁 <a href="#">/01-splunk-siem-monitoring</a></div>
         </article>
 
-        <!-- case 2 -->
         <article class="case-card" id="case-002">
           <span class="case-stamp">documented</span>
           <span class="case-id">CASE-002</span>
@@ -714,17 +695,15 @@
             <li>Logged alerts as tickets instead of one‑off searches</li>
             <li>Practiced triage: priority/severity based on asset criticality</li>
             <li>Wrote structured incident reports with timeline and IoCs</li>
-            <li>Focused on clear documentation as a deliverable</li>
           </ul>
           <div class="skill-tags">
             <span class="skill-tag">Alert Triage</span>
             <span class="skill-tag">Ticketing</span>
             <span class="skill-tag">Incident Reporting</span>
           </div>
-          <div class="evidence">📁 <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/02-incident-response" target="_blank" rel="noopener">/02-incident-response</a></div>
+          <div class="evidence">📁 <a href="#">/02-incident-response</a></div>
         </article>
 
-        <!-- case 3 -->
         <article class="case-card" id="case-003">
           <span class="case-stamp">documented</span>
           <span class="case-id">CASE-003</span>
@@ -744,10 +723,9 @@
             <span class="skill-tag">Wireshark Filters</span>
             <span class="skill-tag">Traffic Baselining</span>
           </div>
-          <div class="evidence">📁 <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/03-wireshark-traffic-analysis" target="_blank" rel="noopener">/03-wireshark-traffic-analysis</a></div>
+          <div class="evidence">📁 <a href="#">/03-wireshark-traffic-analysis</a></div>
         </article>
 
-        <!-- case 4 -->
         <article class="case-card" id="case-004">
           <span class="case-stamp">documented</span>
           <span class="case-id">CASE-004</span>
@@ -768,13 +746,13 @@
             <span class="skill-tag">Network Segmentation</span>
             <span class="skill-tag">Log Analysis</span>
           </div>
-          <div class="evidence">📁 <a href="https://github.com/elenluz/Cyberthreat-Monitoring-Portfolio/tree/main/04-kali-honeypot-homelab" target="_blank" rel="noopener">/04-kali-honeypot-homelab</a></div>
+          <div class="evidence">📁 <a href="#">/04-kali-honeypot-homelab</a></div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- timeline (grid) -->
+  <!-- timeline -->
   <section id="timeline">
     <div class="wrap">
       <span class="eyebrow">15 days</span>
@@ -790,7 +768,7 @@
     </div>
   </section>
 
-  <!-- skills (compact grid) -->
+  <!-- skills -->
   <section id="skills">
     <div class="wrap">
       <span class="eyebrow">by category</span>
@@ -804,7 +782,7 @@
     </div>
   </section>
 
-  <!-- contact (two columns) -->
+  <!-- contact -->
   <section id="contact" style="border-bottom: none;">
     <div class="wrap">
       <span class="eyebrow">status: open</span>
@@ -813,4 +791,7 @@
         <div class="contact-card">
           <span class="contact-stamp">new ticket</span>
           <div class="field-row"><span class="field-key">Reporter</span><span class="field-val">Elen Luz N. Gayondato</span></div>
-          <div class="field-row"><span class="field-key">Priority</span><span class="field-val">Entry‑Level SOC Analyst / Security Operations</span></
+          <div class="field-row"><span class="field-key">Priority</span><span class="field-val">Entry‑Level SOC Analyst / Security Operations</span></div>
+          <div class="field-row"><span class="field-key">Email</span><span class="field-val"><a href="mailto:elengayondato@gmail.com">elengayondato@gmail.com</a></span></div>
+          <div class="field-row"><span class="field-key">LinkedIn</span><span class="field-val"><a href="https://www.linkedin.com/in/elen-luz-gayondato-5b44a72a0/" target="_blank" rel="noopener">linkedin.com/in/elen-luz-gayondato</a></span></div>
+          <div class="field-row"><span class="field-key">Git
