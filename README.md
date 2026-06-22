@@ -18,7 +18,7 @@
 
 > A home lab project built to practice the full lifecycle of a security incident — from raw packet capture to a written report — using the same categories of tooling found in real SOC environments. Built in 15 days as a self-directed program, not a job; treat this as evidence of hands-on initiative going into entry-level SOC / security operations roles.
 
-🔗 **Live site:** `https://elenluz.github.io/Cyberthreat-Monitoring-Portfolio/`
+🔗 **Live site:** [Cyberthreat Monitoring Portfolio](https://elenluz.github.io/Cyberthreat-Monitoring-Portfolio/)
 
 ---
 
