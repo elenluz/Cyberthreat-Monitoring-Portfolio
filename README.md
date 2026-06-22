@@ -62,7 +62,7 @@ Each case below mirrors a real SOC workflow stage — detection, response, netwo
 
 **Skills demonstrated:** SPL query writing · log correlation · dashboard design · technical presenting
 
-📁 Evidence: [`/01-splunk-siem-monitoring`](./01-splunk-siem-monitoring) — SPL queries, dashboard exports, screenshots
+📁 Evidence: [`/01-splunk-siem-monitoring`](./01-splunk-siem-monitoring/01-splunk-siem-monitoring-README.md) — SPL queries, dashboard exports, screenshots
 
 ---
 
@@ -79,7 +79,7 @@ Each case below mirrors a real SOC workflow stage — detection, response, netwo
 
 **Skills demonstrated:** alert triage · prioritization · ticketing workflows · incident report writing
 
-📁 Evidence: [`/02-incident-response`](./02-incident-response) — report template and example tickets
+📁 Evidence: [`/02-incident-response`](./02-incident-response/02-incident-response-README.md) — report template and example tickets
 
 ---
 
@@ -96,7 +96,7 @@ Each case below mirrors a real SOC workflow stage — detection, response, netwo
 
 **Skills demonstrated:** packet analysis · Wireshark filters · traffic baselining · anomaly identification
 
-📁 Evidence: [`/03-wireshark-traffic-analysis`](./03-wireshark-traffic-analysis) — capture notes and filter examples
+📁 Evidence: [`/03-wireshark-traffic-analysis`](./03-wireshark-traffic-analysis/03-wireshark-traffic-analysis-README.md) — capture notes and filter examples
 
 ---
 
@@ -113,7 +113,7 @@ Each case below mirrors a real SOC workflow stage — detection, response, netwo
 
 **Skills demonstrated:** honeypot configuration · network segmentation · log analysis · attacker TTP identification
 
-📁 Evidence: [`/04-kali-honeypot-homelab`](./04-kali-honeypot-homelab) — network diagram and log analysis notes
+📁 Evidence: [`/04-kali-honeypot-homelab`](./04-kali-honeypot-homelab/04-kali-honeypot-homelab-README.md) — network diagram and log analysis notes
 
 ---
 
@@ -146,22 +146,22 @@ soc-analyst-portfolio/
 ├── README.md
 ├── 01-splunk-siem-monitoring/
 │   ├── README.md              # write-up of approach + findings
-│   ├── spl-queries.md         # your actual SPL queries, commented
+│   ├── case1.html             # UI for case 1
 │   └── screenshots/           # dashboard panels, search results
 ├── 02-incident-response/
 │   ├── README.md
-│   ├── incident-report-template.md
-│   └── sample-tickets.md
+│   ├── case2.html             # UI for case 2
+│   ├── incident-report/       # detailed incident reports
+│   └── ticket/                # ticket scenarios
 ├── 03-wireshark-traffic-analysis/
 │   ├── README.md
+│   ├── case3.html             # UI for case 3
 │   ├── pcap-findings.md       # filters used + what they revealed
 │   └── screenshots/
 ├── 04-kali-honeypot-homelab/
 │   ├── README.md
-│   ├── network-diagram.png    # how the lab was isolated
-│   └── attack-log-analysis.md
-└── assets/
-    └── screenshots/
+│   ├── case4.html             # UI for case 4
+└── └── screenshots/            # how the lab was isolated
 ```
 
 
